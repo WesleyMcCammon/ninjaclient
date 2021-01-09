@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { PivotService } from '../../service/pivot.service';
-import { TradeTicket } from '../../model/tradeTicket';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { OrderService } from '../../../order/service/order.service';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-pivot-table-item',
@@ -13,14 +13,20 @@ export class PivotTableItemComponent implements OnInit {
   @Input() pivotValue: number = 0;
   @Input() ticker: string = '';
   @Input() liveMarketData: boolean = false;
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
-  constructor(private pivotService: PivotService) { }
+  constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
   }
 
+  showMenu() {
+    debugger;
+    this.trigger.openMenu();
+  }
+
   issueTradeTicket(type: string) {
-    this.pivotService.initiateTradeTicket({
+    this.orderService.initiateTradeTicket({
       ticker: this.ticker, 
       name: this.pivotPointName, 
       strategy: this.pivotName, 

@@ -9,6 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu'
 
 @NgModule({
   declarations: [],
@@ -20,7 +21,8 @@ import { MatCardModule } from '@angular/material/card';
     MatTableModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -29,7 +31,8 @@ import { MatCardModule } from '@angular/material/card';
     MatTableModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule
   ]
 })
 export class MaterialDesignModule { }

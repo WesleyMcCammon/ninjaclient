@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PivotCalculation } from '../../model/pivot';
-import { TradeTicket } from '../../model/tradeTicket';
 
 @Component({
   selector: 'app-pivot-table',

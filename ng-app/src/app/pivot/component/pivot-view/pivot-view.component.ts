@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pivot } from '../../model/pivot';
-import { TradeTicket } from '../../model/tradeTicket';
-import { PivotService } from '../../service/pivot.service';
+import { TradeTicket } from '../../../model/tradeTicket';
+import { OrderService } from '../../../order/service/order.service';
 
 @Component({
   selector: 'app-pivot-view',
@@ -11,12 +11,12 @@ import { PivotService } from '../../service/pivot.service';
 export class PivotViewComponent implements OnInit {
   pivots: Pivot[] = new Array<Pivot>(); 
 
-  constructor(private pivotService: PivotService) { }
+  constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
     this.mockPivots();
 
-    this.pivotService.tradeTicketInitiated.subscribe((tradeTicket: TradeTicket) => {
+    this.orderService.tradeTicketInitiated.subscribe((tradeTicket: TradeTicket) => {
       debugger;
     });
   }
