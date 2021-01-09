@@ -1,0 +1,33 @@
+.container {
+    display:flex;flex-direction:column;
+    cursor: pointer;
+    border: outset 1px transparent;
+}
+
+.container:hover {
+    cursor: pointer;
+    border: outset 1px #efefef;
+}
+
+.mat-menu-item {
+    line-height: 24px;
+    height: 25px;
+    padding: none;
+    font-variant: small-caps;
+}
+
+.mat-menu-item > span {
+    font-size:larger;
+}
+
+.pivot-order-item {
+    font-size: larger;
+}
+
+.pivot-order-item-buy {
+    color: green;
+}
+
+.pivot-order-item-sell {
+    color: red;
+}

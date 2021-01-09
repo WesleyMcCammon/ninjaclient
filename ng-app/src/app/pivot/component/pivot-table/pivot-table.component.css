@@ -12,10 +12,6 @@ table {
     width: 15%;
 }
 
-.pivot-table td:hover {
-    cursor: pointer;
-    border: outset 1px #efefef;
-}
 .pivotCalculationName {
     font-variant: small-caps;
 }

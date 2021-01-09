@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Pivot, PivotLevel, PivotCalculation } from '../../model/pivot';
+import { PivotCalculation } from '../../model/pivot';
+import { TradeTicket } from '../../model/tradeTicket';
 
 @Component({
   selector: 'app-pivot-table',
@@ -19,6 +20,4 @@ export class PivotTableComponent implements OnInit {
   hasValue(value: number): boolean {
     return value > 0;
   }
-
-
 }
