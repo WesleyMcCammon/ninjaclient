@@ -51,6 +51,7 @@
             <app-pivot-table-item 
                 [ticker]="pivotCalculation.ticker" 
                 [pivotPointName]="pivotCalculation.name" 
+                [pivotName]="'S1'" 
                 [pivotValue]="pivotCalculation.pivotLevel.s1" 
                 [liveMarketData]="liveMarketData"></app-pivot-table-item>
         </td>
@@ -58,6 +59,7 @@
             <app-pivot-table-item 
                 [ticker]="pivotCalculation.ticker" 
                 [pivotPointName]="pivotCalculation.name" 
+                [pivotName]="'S2'" 
                 [pivotValue]="pivotCalculation.pivotLevel.s2" 
                 [liveMarketData]="liveMarketData"></app-pivot-table-item>
         </td>
@@ -67,6 +69,7 @@
                     <app-pivot-table-item 
                         [ticker]="pivotCalculation.ticker" 
                         [pivotPointName]="pivotCalculation.name" 
+                        [pivotName]="'S3'" 
                         [pivotValue]="pivotCalculation.pivotLevel.s3" 
                         [liveMarketData]="liveMarketData"></app-pivot-table-item>
                 </ng-container>
