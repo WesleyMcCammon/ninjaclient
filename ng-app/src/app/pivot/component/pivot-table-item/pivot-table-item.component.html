@@ -1,0 +1,8 @@
+<div style="display:flex;flex-direction:column">
+    <div>{{pivotValue | number:'1.2-2' | formatNumberNoComma}}</div>
+    <ng-container [ngSwitch]="liveMarketData">
+        <ng-container *ngSwitchCase="true">
+            <div style="color:green;font-size:10px">43.25</div>
+        </ng-container>
+    </ng-container>
+</div>         

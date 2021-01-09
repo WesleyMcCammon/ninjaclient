@@ -1,0 +1,45 @@
+<div class="pivotCalculationName">{{pivotCalculation.name}}</div>
+<table class="pivot-table">
+    <tr *ngIf="showHeader">
+        <th>R3</th>
+        <th>R2</th>
+        <th>R1</th>
+        <th>Pivot</th>
+        <th>S1</th>
+        <th>S2</th>
+        <th>S3</th>
+    </tr>
+    <tr>
+        <td>
+            <ng-container [ngSwitch]="hasValue(pivotCalculation.pivotLevel.r3)">
+                <ng-container *ngSwitchCase="true">
+                    <app-pivot-table-item [pivotValue]="pivotCalculation.pivotLevel.r3" [liveMarketData]="liveMarketData"></app-pivot-table-item>
+                </ng-container>
+                <ng-container *ngSwitchDefault>-</ng-container>
+            </ng-container>        
+        </td>
+        <td>
+            <app-pivot-table-item [pivotValue]="pivotCalculation.pivotLevel.r2" [liveMarketData]="liveMarketData"></app-pivot-table-item>
+        </td>
+        <td>
+            <app-pivot-table-item [pivotValue]="pivotCalculation.pivotLevel.r1" [liveMarketData]="liveMarketData"></app-pivot-table-item>
+        </td>
+        <td>
+            <app-pivot-table-item [pivotValue]="pivotCalculation.pivotLevel.pivot" [liveMarketData]="liveMarketData"></app-pivot-table-item>
+        </td>
+        <td>
+            <app-pivot-table-item [pivotValue]="pivotCalculation.pivotLevel.s1" [liveMarketData]="liveMarketData"></app-pivot-table-item>
+        </td>
+        <td>
+            <app-pivot-table-item [pivotValue]="pivotCalculation.pivotLevel.s2" [liveMarketData]="liveMarketData"></app-pivot-table-item>
+        </td>
+        <td>
+            <ng-container [ngSwitch]="hasValue(pivotCalculation.pivotLevel.s3)">
+                <ng-container *ngSwitchCase="true">
+                    <app-pivot-table-item [pivotValue]="pivotCalculation.pivotLevel.s3" [liveMarketData]="liveMarketData"></app-pivot-table-item>
+                </ng-container>
+                <ng-container *ngSwitchDefault>-</ng-container>
+            </ng-container>        
+        </td>
+    </tr>
+</table>

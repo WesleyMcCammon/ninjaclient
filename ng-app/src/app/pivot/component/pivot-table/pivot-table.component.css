@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+}
+.pivot-table th {
+    color: #ababab;
+    font-weight: normal;
+    width: 15%;
+}
+
+.pivot-table td {
+    text-align: center;
+    width: 15%;
+}
+
+.pivot-table td:hover {
+    cursor: pointer;
+    border: outset 1px #efefef;
+}
+.pivotCalculationName {
+    font-variant: small-caps;
+}
