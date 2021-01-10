@@ -20,16 +20,11 @@ export class PivotTableItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  showMenu() {
-    debugger;
-    this.trigger.openMenu();
-  }
-
-  issueTradeTicket(type: string) {
-    this.orderService.initiateTradeTicket({
+  issueOrderTicket(type: string) {
+    this.orderService.initiateOrderTicket({
       ticker: this.ticker, 
       name: this.pivotPointName, 
-      strategy: this.pivotName, 
+      technicalStrategy: this.pivotName, 
       trigger: this.pivotValue, 
       type: type
     });

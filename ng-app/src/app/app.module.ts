@@ -12,6 +12,8 @@ import { PivotViewComponent } from './pivot/component/pivot-view/pivot-view.comp
 import { PivotTableComponent } from './pivot/component/pivot-table/pivot-table.component';
 import { FormatNumberNoCommaPipe } from './pipe/format-number-no-comma.pipe';
 import { PivotTableItemComponent } from './pivot/component/pivot-table-item/pivot-table-item.component';
+import { TicketComponent } from './order/component/ticket/ticket.component';
+import { AtmStrategyComponent } from './order/component/atm-strategy/atm-strategy.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { PivotTableItemComponent } from './pivot/component/pivot-table-item/pivo
     PivotViewComponent,
     PivotTableComponent,
     FormatNumberNoCommaPipe,
-    PivotTableItemComponent
+    PivotTableItemComponent,
+    TicketComponent,
+    AtmStrategyComponent
   ],
   imports: [
     BrowserModule,

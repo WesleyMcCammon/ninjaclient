@@ -1,0 +1,21 @@
+.mat-card-title {
+    font-variant: small-caps;
+    font-size:22px;
+}
+.mat-card-header-text {
+    margin: 0px 0px;
+}
+
+.mat-card-widget {
+    padding:7px;
+    margin-right: 5px;
+}
+
+.order-ticket-row {
+    display:flex;flex-direction:row;
+    margin-bottom:10px;
+}
+
+.order-ticket-row div:nth-child(1) {
+    width: 100px;
+}

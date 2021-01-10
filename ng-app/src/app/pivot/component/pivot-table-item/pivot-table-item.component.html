@@ -1,12 +1,12 @@
 <div class="container" [matMenuTriggerFor]="menu">
     <mat-menu #menu>
-        <button (click)="issueTradeTicket('buy')" mat-menu-item class="pivot-order-item-buy">
+        <button (click)="issueOrderTicket('buy')" mat-menu-item class="pivot-order-item-buy">
             <span class="pivot-order-item">buy {{pivotPointName}}</span> {{pivotName}}</button>
-        <button (click)="issueTradeTicket('sell')" mat-menu-item class="pivot-order-item-sell">
+        <button (click)="issueOrderTicket('sell')" mat-menu-item class="pivot-order-item-sell">
             <span class="pivot-order-item">sell {{pivotPointName}}</span> {{pivotName}}</button>
-        <button (click)="issueTradeTicket('reverse')" mat-menu-item>
+        <button (click)="issueOrderTicket('reverse')" mat-menu-item>
             <span class="pivot-order-item">reverse order</span></button>
-        <button (click)="issueTradeTicket('cancel')" mat-menu-item>
+        <button (click)="issueOrderTicket('cancel')" mat-menu-item>
             <span class="pivot-order-item">cancel order</span></button>
     </mat-menu>
     <div>{{pivotValue | number:'1.2-2' | formatNumberNoComma}}</div>

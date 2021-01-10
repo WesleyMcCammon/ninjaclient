@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu'
+import { MatInputModule } from '@angular/material/input'
 
 @NgModule({
   declarations: [],
@@ -22,7 +23,8 @@ import { MatMenuModule } from '@angular/material/menu'
     MatSelectModule,
     MatFormFieldModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MatInputModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -32,7 +34,8 @@ import { MatMenuModule } from '@angular/material/menu'
     MatSelectModule,
     MatFormFieldModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MatInputModule
   ]
 })
 export class MaterialDesignModule { }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Pivot } from '../../model/pivot';
-import { TradeTicket } from '../../../model/tradeTicket';
+import { OrderTicket } from '../../../order/model/orderTicket';
 import { OrderService } from '../../../order/service/order.service';
 
 @Component({
@@ -16,8 +16,8 @@ export class PivotViewComponent implements OnInit {
   ngOnInit(): void {
     this.mockPivots();
 
-    this.orderService.tradeTicketInitiated.subscribe((tradeTicket: TradeTicket) => {
-      debugger;
+    this.orderService.orderTicketInitiated.subscribe((orderTicket: OrderTicket) => {
+      console.log('================================ orderTicketInitiated');
     });
   }
 
