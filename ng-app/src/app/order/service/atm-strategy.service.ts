@@ -11,11 +11,11 @@ export class AtmStrategyService {
   constructor() { }
 
   public getStrategies(): Observable<ATMStrategy[]> {
-    this.atmStrategy.push(new ATMStrategy('Reversal 1', 1, 5, [200], [600], 100));
-    this.atmStrategy.push(new ATMStrategy('Reversal 2', 2, 4, [200, 250], [600, 600], 100));
-    this.atmStrategy.push(new ATMStrategy('Reversal 3', 3, 3, [200, 250, 400], [600, 1000, 1200], 100));
-    this.atmStrategy.push(new ATMStrategy('Reversal 4', 4, 2, [200], [600], 100));
-    this.atmStrategy.push(new ATMStrategy('Reversal 5', 5, 1, [200, 210, 220, 230, 240, 250, 260], [600, 610, 620, 630, 640, 650, 660], 100));
+    this.atmStrategy.push(new ATMStrategy('Reversal 1', 1, 4, [6], [6], 8));
+    this.atmStrategy.push(new ATMStrategy('Reversal 2', 2, 4, [220, 250], [600, 600], 100));
+    this.atmStrategy.push(new ATMStrategy('Reversal 3', 3, 3, [210, 250, 400], [600, 1000, 1200], 100));
+    this.atmStrategy.push(new ATMStrategy('Reversal 4', 4, 2, [100], [600], 100));
+    this.atmStrategy.push(new ATMStrategy('Reversal 5', 5, 1, [45, 210, 220, 230, 240, 250, 260], [600, 610, 620, 630, 640, 650, 660], 100));
 
     return of(this.atmStrategy);
   }

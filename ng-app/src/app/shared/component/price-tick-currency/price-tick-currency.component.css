@@ -1,0 +1,16 @@
+.price-tick-currency-container {
+    display:flex;flex-direction:row;
+}
+
+.price-tick-currency-input-container {
+    width: 65%;
+}
+
+.price-tick-currency-details-container {
+    display:flex;flex-direction:column;color:green;
+    font-size: 10px;
+}
+
+.price-tick-currency-details-ticks {
+    top:-20px;font-size:10px;
+}

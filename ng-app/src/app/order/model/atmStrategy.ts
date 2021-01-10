@@ -12,6 +12,8 @@ export class ATMStrategy {
     get stopLoss(): number[] { return this._stopLoss; }
     get takeProfit(): number[] { return this._takeProfit; }
     get cancelOrder(): number {return this._cancelOrder; }
+    get missingStopLoss(): boolean { return this._stopLoss.length < this._quantity; }
+    get missingTakeProfit(): boolean { return this._takeProfit.length < this._quantity; }
     
     constructor(name: string, quantity: number, entry: number, stopLoss: number[], takeProfit: number[], cancelOrder: number){
         this._name = name;
@@ -25,23 +27,11 @@ export class ATMStrategy {
             if(stopLoss.length > quantity) {
                 this._stopLoss = stopLoss.slice(0, quantity);
             }
-            else {
-                const lastValue = this._stopLoss[this._stopLoss.length-1];
-                while(this._stopLoss.length !== quantity) {
-                    this._stopLoss.push(lastValue);
-                }
-            }
         }
 
         if(takeProfit.length > 0 && takeProfit.length !== quantity) {
             if(takeProfit.length > quantity) {
                 this._takeProfit = takeProfit.slice(0, quantity);
-            }
-            else {
-                const lastValue = this._takeProfit[this._takeProfit.length-1];
-                while(this._takeProfit.length !== quantity) {
-                    this._takeProfit.push(lastValue);
-                }
             }
         }
     }

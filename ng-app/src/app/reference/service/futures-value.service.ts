@@ -18,4 +18,22 @@ export class FuturesValueService {
     const ticks = amount/tickValue;
     return ticks;
   }
+
+  public ticksToDollars(ticker: string, ticks: number): number {
+    const tickValue = this.getTickValue(ticker);
+    return ticks * tickValue;
+  }
+
+  public ticksPerPoint(ticker: string): number {
+    let ticks: number = 0;
+    
+    if(ticker === 'ES') {
+      ticks = 4
+    }
+    else if(ticker === 'NQ') {
+      ticks = 4;
+    }
+    
+    return ticks;
+  }
 }

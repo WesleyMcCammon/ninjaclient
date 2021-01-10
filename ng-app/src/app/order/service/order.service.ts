@@ -22,22 +22,18 @@ export class OrderService {
     const takeProfitPrice: number[] = [];
     
     // calculate cancel order price
-    const cancelOrderOffset = this.futuresValueService.dollarsToTicks(ticker, atmStrategy.cancelOrder);
-    const cancelOrderPrice = type === 'buy' ? trigger + cancelOrderOffset : trigger - cancelOrderOffset;
+    const cancelOrderPrice = type === 'buy' ? trigger - atmStrategy.cancelOrder : trigger + atmStrategy.cancelOrder;
     
     // calculate entry price
-    const entryPriceOffset = this.futuresValueService.dollarsToTicks(ticker, atmStrategy.entry);    
-    const entryPrice = type === 'buy' ? trigger + entryPriceOffset : trigger - entryPriceOffset;
+    const entryPrice = type === 'buy' ? trigger + atmStrategy.entry : trigger - atmStrategy.entry;
 
     for(var index = 0; index <  atmStrategy.quantity; index++) {
 
       // calculate stop loss price
-      const stopLossPriceOffset = this.futuresValueService.dollarsToTicks(ticker, atmStrategy.stopLoss[index]);
-      stopLossPrice[index] = type === 'buy' ? trigger + stopLossPriceOffset : trigger - stopLossPriceOffset;
+      stopLossPrice[index] = type === 'buy' ? entryPrice - atmStrategy.stopLoss[index] : entryPrice + atmStrategy.stopLoss[index];
 
       // calculate take profit price
-      const takeProfitPriceOffset = this.futuresValueService.dollarsToTicks(ticker, atmStrategy.takeProfit[index]);
-      takeProfitPrice[index] = type === 'buy' ? trigger + takeProfitPriceOffset : trigger - takeProfitPriceOffset;
+      takeProfitPrice[index] = type === 'buy' ? entryPrice + atmStrategy.takeProfit[index] : entryPrice - atmStrategy.takeProfit[index];
     }
 
     const atmCalculation: ATMCalculation = {

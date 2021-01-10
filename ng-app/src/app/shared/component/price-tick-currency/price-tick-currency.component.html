@@ -1,0 +1,12 @@
+<div class="price-tick-currency-container">
+    <div class="price-tick-currency-input-container">
+        <mat-form-field>
+            <mat-label>{{label}}</mat-label>
+            <input (change)="onInputChange()" matInput type="number" [(ngModel)]="price" style="width:60%">
+        </mat-form-field>
+    </div>
+    <div class="price-tick-currency-details-container">
+        <mat-label class="price-tick-currency-details-ticks">{{ticks}} ticks</mat-label>
+        <mat-label>{{futuresValueService.ticksToDollars(ticker, ticks) | currency}}</mat-label>
+    </div>
+</div>

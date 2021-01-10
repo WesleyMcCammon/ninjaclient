@@ -34,22 +34,48 @@
                 </mat-form-field>
                 <div style="display:flex;flex-direction:row">
                     <div style="width:45%">
-                        <div *ngFor="let x of atmCalculation.stopLossPrice; let i = index">
-                            <mat-form-field>
-                                <mat-label>Stop Loss {{i+1}}</mat-label>
-                                <input matInput type="number" [value]="atmCalculation.stopLossPrice[i]">
-                            </mat-form-field>
-                        </div>
+                        <app-price-tick-currency *ngFor="let x of atmCalculation.stopLossPrice; let i = index" 
+                            label="Stop Loss {{i+1}}" 
+                            [price]="atmCalculation.stopLossPrice[i]"
+                            [ticks]="selectedATMStrategy.stopLoss[i]"
+                            [ticker]="orderTicket.ticker"></app-price-tick-currency>
+
+                        <!-- <div style="display:flex;flex-direction:row" *ngFor="let x of atmCalculation.stopLossPrice; let i = index">
+                            <div style="width:65%;">
+                                <mat-form-field>
+                                    <mat-label>Stop Loss {{i+1}}</mat-label>
+                                    <input matInput type="number" [value]="atmCalculation.stopLossPrice[i]">
+                                </mat-form-field>
+                            </div>
+                            <div style="display:flex;flex-direction:column;color:red;">
+                                <mat-label style="font-size:10px;">{{selectedATMStrategy.stopLoss[i]}} ticks</mat-label>
+                                <mat-label style="font-size:10px;">{{futuresValueService.ticksToDollars(orderTicket.ticker, selectedATMStrategy.stopLoss[i]) | currency}}</mat-label>
+                            </div>
+                        </div> -->
+                        <div *ngIf="selectedATMStrategy.missingStopLoss">missing sl</div>
                     </div>
                     <div>
-                        <div *ngFor="let x of atmCalculation.takeProfitPrice; let i = index">
-                            <mat-form-field>
-                                <mat-label>Take Profit {{i+1}}</mat-label>
-                                <input matInput type="number" [value]="atmCalculation.takeProfitPrice[i]">
-                            </mat-form-field>
-                        </div>
+                        <app-price-tick-currency *ngFor="let x of atmCalculation.takeProfitPrice; let i = index" 
+                            label="Take Profit {{i+1}}" 
+                            [price]="atmCalculation.takeProfitPrice[i]"
+                            [ticks]="selectedATMStrategy.takeProfit[i]"
+                            [ticker]="orderTicket.ticker"></app-price-tick-currency>
+                        <!--<div *ngFor="let x of atmCalculation.takeProfitPrice; let i = index">
+                            
+                             <div style="width:65%;">
+                                <mat-form-field>
+                                    <mat-label>Take Profit {{i+1}}</mat-label>
+                                    <input matInput type="number" [value]="atmCalculation.takeProfitPrice[i]">
+                                </mat-form-field>
+                            </div>
+                            <div style="display:flex;flex-direction:column;color:green;">
+                                <mat-label style="top:-20px;font-size:10px;">{{selectedATMStrategy.takeProfit[i]}} ticks</mat-label>
+                                <mat-label style="font-size:10px;">{{futuresValueService.ticksToDollars(orderTicket.ticker, selectedATMStrategy.takeProfit[i]) | currency}}</mat-label>
+                            </div> 
+                        </div>-->
+                        <div *ngIf="selectedATMStrategy.missingTakeProfit">missing tp</div>
                     </div>
-                </div>
+                </div>              
             </div>
         </div>
     </mat-card-content>

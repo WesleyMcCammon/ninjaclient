@@ -14,6 +14,7 @@ import { FormatNumberNoCommaPipe } from './pipe/format-number-no-comma.pipe';
 import { PivotTableItemComponent } from './pivot/component/pivot-table-item/pivot-table-item.component';
 import { TicketComponent } from './order/component/ticket/ticket.component';
 import { AtmStrategyComponent } from './order/component/atm-strategy/atm-strategy.component';
+import { PriceTickCurrencyComponent } from './shared/component/price-tick-currency/price-tick-currency.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { AtmStrategyComponent } from './order/component/atm-strategy/atm-strateg
     FormatNumberNoCommaPipe,
     PivotTableItemComponent,
     TicketComponent,
-    AtmStrategyComponent
+    AtmStrategyComponent,
+    PriceTickCurrencyComponent
   ],
   imports: [
     BrowserModule,

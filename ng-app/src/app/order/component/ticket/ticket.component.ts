@@ -5,6 +5,7 @@ import { AtmStrategyService } from '../../service/atm-strategy.service';
 import { OrderService } from '../../service/order.service';
 import { SettingsService } from '../../../configuration/service/settings.service';
 import { ATMCalculation } from '../../model/atmCalculation';
+import { FuturesValueService } from '../../../reference/service/futures-value.service';
 
 @Component({
   selector: 'app-ticket',
@@ -19,7 +20,8 @@ export class TicketComponent implements OnInit {
 
   constructor(private atmStrategyService: AtmStrategyService, 
     private orderService: OrderService, 
-    private settingsService: SettingsService) { }
+    private settingsService: SettingsService,
+    private futuresValueService: FuturesValueService) { }
 
   ngOnInit(): void {
     this.atmStrategyService.getStrategies().subscribe((atmStragegyList: ATMStrategy[]) => {
@@ -38,7 +40,15 @@ export class TicketComponent implements OnInit {
   }
 
   private getATMCalculation() {
-    this.atmCalculation = this.orderService.calculatePrices(this.orderTicket.ticker, 
+    const atmCalculation = this.orderService.calculatePrices(this.orderTicket.ticker, 
       this.orderTicket.trigger, this.orderTicket.type, this.selectedATMStrategy);
+    atmCalculation.stopLossPrice = atmCalculation.stopLossPrice.filter(s => !isNaN(s));
+    atmCalculation.takeProfitPrice = atmCalculation.takeProfitPrice.filter(s => !isNaN(s));
+
+    this.atmCalculation = atmCalculation;
+  }
+
+  stopLossTicks(index){
+    return this.selectedATMStrategy.stopLoss[index];
   }
 }
