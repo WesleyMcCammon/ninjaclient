@@ -19,3 +19,27 @@
 .order-ticket-row div:nth-child(1) {
     width: 100px;
 }
+
+.mat-card-content > div:nth-child(1) {
+    display:flex;flex-direction:row;
+}
+
+.mat-card-content > div:nth-child(1) > div:nth-child(1) {
+    display:flex;flex-direction:column;margin-right:20px;
+}
+
+.mat-card-content > div:nth-child(1) > div:nth-child(2) {
+    display:flex;flex-direction:column;flex:1 1 auto;
+}
+
+.atm-strategy-contianer {
+    width: 200px;
+}
+
+.stop-loss-take-profit-container {
+    display:flex;flex-direction:row
+}
+
+.stop-loss-take-profit-container > div:nth-child(1) {
+    width: 45%;
+}
