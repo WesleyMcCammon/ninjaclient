@@ -13,7 +13,7 @@ export class PriceTickCurrencyComponent implements OnInit {
   @Input() step: number = 1;
   @Input() entry: number = 0;
   @Input() type: string;
-  @Output() change: EventEmitter<number> = new EventEmitter();  
+  @Output() change: EventEmitter<number> = new EventEmitter<number>();  
   showTicks: boolean = false;
 
   ticks: number = 0;
@@ -31,8 +31,15 @@ export class PriceTickCurrencyComponent implements OnInit {
     this.ticks = ticks;
   }
 
-  onKeyUp(){
+  onKeyUp(event){
+    // const isNumber: boolean = (event.keyCode >= 48 && event.keyCode <= 57) || 
+    //   (event.keyCode >= 97 && event.keyCode <= 106);
+    // if(isNumber) {
+    //   this.recalculate();
+    //   this.change.emit(this.price);
+    // }
     this.recalculate();
+    this.change.emit(this.price);
   }
 
   onKeyDown(event) {
@@ -42,8 +49,8 @@ export class PriceTickCurrencyComponent implements OnInit {
     }
     const isNumber: boolean = (event.keyCode >= 48 && event.keyCode <= 57) || 
       (event.keyCode >= 97 && event.keyCode <= 106);
-    const digitsPastDecimal = decmialPosition >= 0 && event.target.value.length - decmialPosition - 1;
-    if(digitsPastDecimal == 2 && isNumber) {
+    const digitsPastDecimal = decmialPosition && event.target.value.length - decmialPosition - 1;
+    if(decmialPosition >= 0 && digitsPastDecimal == 2 && isNumber) {
       event.preventDefault();
     }
   }

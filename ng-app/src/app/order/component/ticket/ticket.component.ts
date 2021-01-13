@@ -51,4 +51,11 @@ export class TicketComponent implements OnInit {
   stopLossTicks(index){
     return this.selectedATMStrategy.stopLoss[index];
   }
+
+  onQuantityChange(event) {
+    if(!isNaN(event)) {
+      this.selectedATMStrategy.quantity = event;
+    }
+    //this.selectedATMStrategy.quantity = event;
+  }
 }

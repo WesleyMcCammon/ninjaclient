@@ -20,6 +20,7 @@
                     [price]="atmCalculation.cancelOrderPrice"></app-price-tick-currency>
                 <app-price-tick-currency
                     label="Quantity" 
+                    (change)="onQuantityChange($event)"
                     [price]="selectedATMStrategy.quantity"></app-price-tick-currency>
             </div>
             <div>

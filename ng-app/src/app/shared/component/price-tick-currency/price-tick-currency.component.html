@@ -3,7 +3,7 @@
         <mat-form-field>
             <mat-label>{{label}}</mat-label>
             <input matInput 
-                (keyup)="onKeyUp()"
+                (keyup)="onKeyUp($event)"
                 (keydown)="onKeyDown($event)"
                 type="number"
                 [step]="step"
@@ -16,10 +16,3 @@
         <mat-label>{{futuresValueService.ticksToDollars(ticker, ticks) | currency}}</mat-label>
     </div>
 </div>
-<!-- <input matInput 
-    (change)="onInputChange()" 
-    (keyup)="onKeyUp()"
-    [step]="step"
-    type="number" 
-    [(ngModel)]="price" 
-    [ngClass]="{'price-tick-input': showTicks}"> -->

@@ -8,7 +8,10 @@ export class ATMStrategy {
 
     get name(): string { return this._name; }
     get entry(): number { return this._entry; }
+
     get quantity(): number { return this._quantity; }
+    set quantity(value: number) { this._quantity = value; }
+    
     get stopLoss(): number[] { return this._stopLoss; }
     get takeProfit(): number[] { return this._takeProfit; }
     get cancelOrder(): number {return this._cancelOrder; }
