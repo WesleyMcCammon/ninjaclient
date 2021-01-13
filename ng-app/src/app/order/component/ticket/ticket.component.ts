@@ -56,6 +56,5 @@ export class TicketComponent implements OnInit {
     if(!isNaN(event)) {
       this.selectedATMStrategy.quantity = event;
     }
-    //this.selectedATMStrategy.quantity = event;
   }
 }

@@ -32,12 +32,6 @@ export class PriceTickCurrencyComponent implements OnInit {
   }
 
   onKeyUp(event){
-    // const isNumber: boolean = (event.keyCode >= 48 && event.keyCode <= 57) || 
-    //   (event.keyCode >= 97 && event.keyCode <= 106);
-    // if(isNumber) {
-    //   this.recalculate();
-    //   this.change.emit(this.price);
-    // }
     this.recalculate();
     this.change.emit(this.price);
   }
