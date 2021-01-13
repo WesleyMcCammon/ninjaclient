@@ -43,3 +43,32 @@
 .stop-loss-take-profit-container > div:nth-child(1) {
     width: 45%;
 }
+
+.stop-loss-warning-message-container {  
+    box-shadow: 2px #efefef #efefef;
+    display:flex;flex-direction:column;
+    font-size: 12px;
+}
+
+.stop-loss-take-profit-message-container {
+    width: 80%;
+}
+
+.stop-loss-take-profit-message {
+    color: white;
+    border-radius: 2px;
+    padding: 4px 4px;
+
+}
+.stop-loss-warning-message {
+    background-color: maroon;
+}
+
+.take-profilt-warning-message {
+    background-color: green;
+}
+
+.stop-loss-take-profit-message-container > div:nth-child(2) {
+    margin-left: 4px;
+    font-size: 12px;
+}

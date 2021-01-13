@@ -13,7 +13,9 @@ export class ATMStrategy {
     get takeProfit(): number[] { return this._takeProfit; }
     get cancelOrder(): number {return this._cancelOrder; }
     get missingStopLoss(): boolean { return this._stopLoss.length < this._quantity; }
+    get missingStopLossCount(): number { return this._quantity - this._stopLoss.length; }
     get missingTakeProfit(): boolean { return this._takeProfit.length < this._quantity; }
+    get missingTakeProfileCount(): number { return this._quantity - this._takeProfit.length; }
     
     constructor(name: string, quantity: number, entry: number, stopLoss: number[], takeProfit: number[], cancelOrder: number){
         this._name = name;

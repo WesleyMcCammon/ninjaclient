@@ -10,22 +10,41 @@ export class PriceTickCurrencyComponent implements OnInit {
   @Input() label: string = '';
   @Input() ticker: string = '';
   @Input() price: number = 0;
-  @Input() ticks: number = 0;
   @Input() step: number = 1;
+  @Input() entry: number = 0;
+  @Input() type: string;
   @Output() change: EventEmitter<number> = new EventEmitter();  
   showTicks: boolean = false;
 
-  private _diff: number = 0;
+  ticks: number = 0;
 
   constructor(public futuresValueService: FuturesValueService) { }
 
   ngOnInit(): void {
-    this.showTicks = this.ticker.length > 0;
-    this._diff = this.ticks;
-    console.log('================ ' + this.ticks + ' ' + this.price);
+    this.price = parseFloat(this.price.toFixed(2));
+    this.recalculate();
   }
 
-  onInputChange() {
-    console.log('================ ' + this.ticks + ' ' + this.price);
+  recalculate() {
+    this.showTicks = this.ticker.length > 0;
+    const ticks = ((this.price - this.entry) * (this.type === 'sell' ? -1 : 1)).toFixed(2);
+    this.ticks = parseFloat(ticks);
+  }
+
+  onKeyUp(){
+    this.recalculate();
+  }
+
+  onKeyDown(event) {
+    const decmialPosition = event.target.value.indexOf('.');
+    if(this.step === 1 && event.keyCode === 110) {
+      event.preventDefault();
+    }
+    const isNumber: boolean = (event.keyCode >= 48 && event.keyCode <= 57) || 
+      (event.keyCode >= 97 && event.keyCode <= 106);
+    const digitsPastDecimal = decmialPosition >= 0 && event.target.value.length - decmialPosition - 1;
+    if(digitsPastDecimal == 2 && isNumber) {
+      event.preventDefault();
+    }
   }
 }

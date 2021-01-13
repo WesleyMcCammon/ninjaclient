@@ -33,22 +33,34 @@
                 </mat-form-field>
                 <div class="stop-loss-take-profit-container">
                     <div>
-                        <app-price-tick-currency *ngFor="let x of atmCalculation.stopLossPrice; let i = index" 
+                        <app-price-tick-currency *ngFor="let stopLossPrice of atmCalculation.stopLossPrice; let i = index" 
                             label="Stop Loss {{i+1}}" 
-                            [price]="atmCalculation.stopLossPrice[i]"
-                            [step]=".01"
-                            [ticks]="selectedATMStrategy.stopLoss[i]"
+                            [price]="stopLossPrice"
+                            [step]=".1"
+                            [entry]="atmCalculation.entryPrice"
+                            [type]="orderTicket.type"
                             [ticker]="orderTicket.ticker"></app-price-tick-currency>
-                        <div *ngIf="selectedATMStrategy.missingStopLoss">missing sl</div>
+                        <div *ngIf="selectedATMStrategy.missingStopLoss">
+                            <div class="stop-loss-take-profit-message-container">
+                                <div class="stop-loss-take-profit-message stop-loss-warning-message">Unlimited Loss Possible</div>
+                                <div>No S/L on {{selectedATMStrategy.missingStopLossCount}} Contracts</div>
+                            </div>
+                        </div>
                     </div>
                     <div>
-                        <app-price-tick-currency *ngFor="let x of atmCalculation.takeProfitPrice; let i = index" 
+                        <app-price-tick-currency *ngFor="let takeProfitPrice of atmCalculation.takeProfitPrice; let i = index" 
                             label="Take Profit {{i+1}}" 
-                            [price]="atmCalculation.takeProfitPrice[i]"
-                            [step]=".01"
-                            [ticks]="selectedATMStrategy.takeProfit[i]"
+                            [price]="takeProfitPrice"
+                            [step]=".1"
+                            [entry]="atmCalculation.entryPrice"
+                            [type]="orderTicket.type"
                             [ticker]="orderTicket.ticker"></app-price-tick-currency>
-                        <div *ngIf="selectedATMStrategy.missingTakeProfit">missing tp</div>
+                        <div *ngIf="selectedATMStrategy.missingTakeProfit">
+                            <div class="stop-loss-take-profit-message-container">
+                                <div class="stop-loss-take-profit-message take-profilt-warning-message">Missing Take Profit</div>
+                                <div>No T/P on {{selectedATMStrategy.missingTakeProfileCount}} Contracts</div>
+                            </div>
+                        </div>
                     </div>
                 </div>              
             </div>
