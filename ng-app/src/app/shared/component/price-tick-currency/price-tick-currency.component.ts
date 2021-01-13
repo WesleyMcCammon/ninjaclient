@@ -21,14 +21,14 @@ export class PriceTickCurrencyComponent implements OnInit {
   constructor(public futuresValueService: FuturesValueService) { }
 
   ngOnInit(): void {
-    this.price = parseFloat(this.price.toFixed(2));
+    this.price = Math.round(this.price * 100) / 100;
     this.recalculate();
   }
 
   recalculate() {
     this.showTicks = this.ticker.length > 0;
-    const ticks = ((this.price - this.entry) * (this.type === 'sell' ? -1 : 1)).toFixed(2);
-    this.ticks = parseFloat(ticks);
+    const ticks = (((this.price - this.entry) * (this.type === 'sell' ? -1 : 1)) * 100)/100;
+    this.ticks = ticks;
   }
 
   onKeyUp(){

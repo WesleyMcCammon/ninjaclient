@@ -18,6 +18,7 @@ export class PivotTableItemComponent implements OnInit {
   constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
+    this.pivotValue = parseInt(Math.round(this.pivotValue * 100).toString()) / 100;
   }
 
   issueOrderTicket(type: string) {
