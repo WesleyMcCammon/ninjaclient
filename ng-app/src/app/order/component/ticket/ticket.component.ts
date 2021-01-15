@@ -57,4 +57,12 @@ export class TicketComponent implements OnInit {
       this.selectedATMStrategy.quantity = event;
     }
   }
+
+  resetTicket() {
+    console.log('reset ticket');
+  }
+
+  submitTicket() {
+    console.log('submit ticket');
+  }
 }
