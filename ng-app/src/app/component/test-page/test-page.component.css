@@ -1,0 +1,74 @@
+.mat-card-title {
+    font-variant: small-caps;
+    font-size:22px;
+}
+.mat-card-header-text {
+    margin: 0px 0px;
+}
+
+.mat-card-widget {
+    padding:7px;
+    margin-right: 5px;
+}
+
+.order-ticket-row {
+    display:flex;flex-direction:row;
+    margin-bottom:10px;
+}
+
+.order-ticket-row div:nth-child(1) {
+    width: 100px;
+}
+
+.mat-card-content > div:nth-child(1) {
+    display:flex;flex-direction:row;
+}
+
+.mat-card-content > div:nth-child(1) > div:nth-child(1) {
+    display:flex;flex-direction:column;margin-right:20px;
+}
+
+.mat-card-content > div:nth-child(1) > div:nth-child(2) {
+    display:flex;flex-direction:column;flex:1 1 auto;
+}
+
+.atm-strategy-contianer {
+    width: 200px;
+}
+
+.stop-loss-take-profit-container {
+    display:flex;flex-direction:row
+}
+
+.stop-loss-take-profit-container > div:nth-child(1) {
+    width: 45%;
+}
+
+.stop-loss-warning-message-container {  
+    box-shadow: 2px #efefef #efefef;
+    display:flex;flex-direction:column;
+    font-size: 12px;
+}
+
+.stop-loss-take-profit-message {
+    padding: 8px 4px;;
+    font-size: 12px;
+
+}
+.stop-loss-warning-message {
+    color: maroon;
+}
+
+.take-profilt-warning-message {
+    color: green;
+}
+
+.button-container {
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.mat-button-base {
+    margin: 8px 8px 8px 0;
+}

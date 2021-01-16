@@ -1,85 +1,71 @@
-{{strat}}
-<div style="display:flex;flex-direction:row">
-    <div *ngIf="orderTicket" style="display:flex;flex-direction:column;width:45%">
-        <h1>Original</h1>
-        <table style="width:95%">
-            <tr>
-                <td>Type</td>
-                <td>{{orderTicket.type}}</td>
-            </tr>
-            <tr>
-                <td>Trigger</td>
-                <td>{{orderTicket.trigger}}</td>
-            </tr>
-            <tr>
-                <td>Entry</td>
-                <td>{{atmCalculation.entryPrice}}</td>
-            </tr>
-            <tr>
-                <td>Cancel</td>
-                <td>{{atmCalculation.cancelOrderPrice}}</td>
-            </tr>
-            <tr>
-                <td>Quantity</td>
-                <td>{{selectedATMStrategy.quantity}}</td>
-            </tr>
-            <tr *ngFor="let stopLossPrice of atmCalculation.stopLossPrice; let i = index">
-                <td>Stop Loss {{i+1}}</td>
-                <td>{{stopLossPrice}}</td>
-            </tr>
-            <tr *ngFor="let takeProfitPrice of atmCalculation.takeProfitPrice; let i = index">
-                <td>Take Profit {{i+1}}</td>
-                <td>{{takeProfitPrice}}</td>
-            </tr>
-            <tr>
-                <td>Missing StopLoss</td>
-                <td>{{selectedATMStrategy.missingStopLoss}}</td>
-            </tr>
-            <tr>
-                <td>Missing TakeProfit</td>
-                <td>{{selectedATMStrategy.missingTakeProfit}}</td>
-            </tr>
-        </table>
+<mat-card *ngIf="orderTicket">
+    <div>
+        <mat-card-title>{{orderTicket.ticker}} {{orderTicket.type}} order ticket</mat-card-title>
     </div>
-    <div *ngIf="orderTicket2" style="display:flex;flex-direction:column;width:45%">
-        <h1>New</h1>
-        <table style="width:95%">
-            <tr>
-                <td>Type</td>
-                <td>{{orderTicket2.type}}</td>
-            </tr>
-            <tr>
-                <td>Trigger</td>
-                <td>{{orderTicket2.trigger}}</td>
-            </tr>
-            <tr>
-                <td>Entry</td>
-                <td>{{orderTicket2.entry}}</td>
-            </tr>
-            <tr>
-                <td>Cancel</td>
-                <td>{{orderTicket2.orderTicketPriceDelta.cancelOrder}}</td>
-            </tr>
-            <tr>
-                <td>Quantity</td>
-                <td>{{orderTicket2.quantity}}</td>
-            </tr>
-            <tr *ngFor="let stopLoss of orderTicket2.orderTicketPriceDelta.stopLoss; let i = index">
-                <td>Stop Loss {{i+1}}</td>
-                <td>{{stopLoss}} ({{orderTicket2._orderTicketPrice.stopLoss[i]}})</td>
-            </tr>
-            <tr *ngFor="let takeProfit of orderTicket2.orderTicketPriceDelta.takeProfit; let i = index">
-                <td>Take Profit {{i+1}}</td>
-                <td>{{takeProfit}} ({{orderTicket2._orderTicketPrice.takeProfit[i]}})</td>
-            </tr>
-            <tr>
-                <td>Missing StopLoss</td>
-                <td>{{orderTicket2.missingStopLossCount}}</td>
-            </tr>
-            <tr>
-                <td>Missing TakeProfit</td>
-                <td>{{orderTicket2.missingTakeProfitCount}}</td>
-            </tr>
-        </table>
-    </div>
-</div>
+    <mat-card-content>
+        <div>
+            <div>
+                <app-price-tick-currency
+                    label="Trigger Price" 
+                    [step]=".01"
+                    [price]="orderTicket2.trigger"></app-price-tick-currency>
+                <app-price-tick-currency
+                    label="Entry Price" 
+                    [step]=".01"
+                    [price]="orderTicket2.entryPrice"></app-price-tick-currency>
+                <app-price-tick-currency
+                    label="Cancel Price" 
+                    [step]=".01"
+                    [price]="orderTicket2.orderTicketPrice.cancelOrder"></app-price-tick-currency>
+                <app-price-tick-currency
+                    label="Quantity" 
+                    (change)="onQuantityChange($event)"
+                    [price]="orderTicket2.quantity"></app-price-tick-currency>
+            </div>
+            <div>
+                <mat-form-field class="atm-strategy-contianer">
+                    <mat-label>ATM Strategy</mat-label>
+                    <mat-select [(value)]="selectedATMStrategy" (selectionChange)="getATMCalculation()">
+                        <mat-option *ngFor="let atmStragegy of atmStragegyList" [value]="atmStragegy">
+                        {{atmStragegy.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="stop-loss-take-profit-container">
+                    <div>
+                        <app-price-tick-currency *ngFor="let stopLoss of orderTicket2.orderTicketPrice.stopLoss; let i = index" 
+                            label="Stop Loss {{i+1}}" 
+                            [price]="stopLoss"
+                            [step]=".1"
+                            [entry]="orderTicket2.entry"
+                            [type]="orderTicket2.type"
+                            [ticker]="orderTicket2.ticker"></app-price-tick-currency>
+                    </div>
+                    <div>
+                        <app-price-tick-currency *ngFor="let takeProfit of orderTicket2.orderTicketPrice.takeProfit; let i = index" 
+                            label="Take Profit {{i+1}}" 
+                            [price]="takeProfit"
+                            [step]=".1"
+                            [entry]="orderTicket2.entry"
+                            [type]="orderTicket2.type"
+                            [ticker]="orderTicket.ticker"></app-price-tick-currency>
+                    </div>
+                </div>              
+            </div>
+        </div>
+        <div style="display:flex;justify-content: flex-end;">
+            <div style="flex: 1 1 auto;display:flex;flex-direction:column;">
+                <div *ngIf="orderTicket2.missingStopLossCount" class="stop-loss-take-profit-message-container stop-loss-warning-message">
+                    WARNING!! Missing S/L on {{orderTicket2.missingStopLossCount}} contracts
+                </div>
+                <div *ngIf="orderTicket2.missingTakeProfitCount" class="stop-loss-take-profit-message-container take-profilt-warning-message">
+                    Missing T/P on {{orderTicket2.missingTakeProfitCount}} contracts
+                </div>
+            </div>
+            <div style="justify-content: flex-end;">
+                <button (click)="resetTicket()" mat-raised-button>Reset</button>
+                <button (click)="submitTicket()" mat-raised-button>Submit</button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

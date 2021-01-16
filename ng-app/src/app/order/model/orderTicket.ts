@@ -6,8 +6,7 @@ export class OrderTicket {
     private _name: string;
     private _type: string;
     private _quantity: number = 0;
-    private _orderTicketPrice: OrderTicketPrice;
-    private _orderTicketPriceDelta: OrderTicketPrice;
+    private _orderTicketPrice: OrderTicketPrice; 
     private _trigger: number;
     private _entry: number = 0;
 
@@ -27,18 +26,13 @@ export class OrderTicket {
     set takeProfile(value: number[]) { this._orderTicketPrice.takeProfit = value; }
 
     get orderTicketPrice(): OrderTicketPrice { return this._orderTicketPrice; }
-    get orderTicketPriceDelta(): OrderTicketPrice { return this._orderTicketPriceDelta; }
 
-    get missingStopLossCount(): number { return this._quantity - this._orderTicketPriceDelta.stopLoss.length; }
-    get missingTakeProfitCount(): number { return this._quantity - this._orderTicketPriceDelta.takeProfit.length; }
+    get missingStopLossCount(): number { return this._quantity - this._orderTicketPrice.stopLoss.length; }
+    get missingTakeProfitCount(): number { return this._quantity - this._orderTicketPrice.takeProfit.length; }
 
     constructor(ticker: string, technicalStrategy: string, name: string, trigger: number, type: string) {
         this._trigger = trigger;
         this._orderTicketPrice = {
-            cancelOrder: 0, stopLoss: [], takeProfit: []
-        };
-
-        this._orderTicketPriceDelta = {
             cancelOrder: 0, stopLoss: [], takeProfit: []
         };
 
@@ -48,41 +42,10 @@ export class OrderTicket {
         this._type = type;
     }
 
-    public SetMe(quantity: number, entry: number, cancelOrder: any, stopLossObj: any[], takeProfitObj: any[]) {
-        const isBuy: boolean = this._type === 'buy';        
-        this._quantity = quantity;
-        this._entry = isBuy ? this._trigger + entry : this._trigger - entry;     
-        
-        const stopLossTicks: number[] = new Array<number>();
-        const stopLossPrice: number[] = new Array<number>();
-
-        stopLossObj.forEach(slo => {
-            stopLossTicks.push(slo['ticks']);
-            stopLossPrice.push(isBuy ? this._entry - slo['price'] : this._entry + slo['price']); // isBuy ? this._entry + slo['price'] : this._entry - slo['price']
-        });
-
-        const takeProfitTicks: number[] = new Array<number>();
-        const takeProfitPrice: number[] = new Array<number>();
-
-        takeProfitObj.forEach(tpo => {
-            takeProfitTicks.push(tpo['ticks']);
-            takeProfitPrice.push(isBuy ? this._entry + tpo['price'] : this._entry - tpo['price']); // isBuy ? this._entry + tpo['price'] : this._entry - tpo['price']
-        });
-        
-        this._orderTicketPrice.stopLoss = stopLossTicks;
-        this._orderTicketPrice.takeProfit = takeProfitTicks;
-        this._orderTicketPrice.cancelOrder = cancelOrder['ticks']; 
-
-        this._orderTicketPriceDelta.cancelOrder = isBuy ? this._entry - cancelOrder['price'] : this._entry  + cancelOrder['price']; 
-        this._orderTicketPriceDelta.stopLoss = stopLossPrice;
-        this._orderTicketPriceDelta.takeProfit = takeProfitPrice;
-
-    }
-    public setATM(quantity: number, entry: number, cancelOrder: number, stopLoss: number[] = [], takeProfit: number[] = []) {
+    public setATM(quantity: number, entry: number, cancelOrder: number, stopLoss: any[], takeProfit: any[]) {
         const isBuy: boolean = this._type === 'buy';        
         this._quantity = quantity;
         this._entry = isBuy ? this._trigger + entry : this._trigger - entry;    
-        this._orderTicketPriceDelta.cancelOrder = isBuy ? this._entry - cancelOrder : this._entry  + cancelOrder;  
         
         const stopLossPrice: number[] = [];
         stopLoss.forEach(sl => {
@@ -92,10 +55,12 @@ export class OrderTicket {
         const takeProfitPrice: number[] = [];
         takeProfit.forEach(tp => {
             takeProfitPrice.push(isBuy ? this._entry + tp : this._entry - tp)
-        });
+        }); 
 
-        this._orderTicketPriceDelta.stopLoss = stopLossPrice;
-        this._orderTicketPriceDelta.takeProfit = takeProfitPrice;
+        this._orderTicketPrice.cancelOrder = isBuy ? this._entry - cancelOrder : this._entry  + cancelOrder; 
+        this._orderTicketPrice.stopLoss = stopLossPrice;
+        this._orderTicketPrice.takeProfit = takeProfitPrice;
+
     }
 
     public setStopLossByIndex(index: number, value: number) {

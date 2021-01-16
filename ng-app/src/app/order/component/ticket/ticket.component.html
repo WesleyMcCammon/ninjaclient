@@ -13,15 +13,15 @@
                 <app-price-tick-currency
                     label="Entry Price" 
                     [step]=".01"
-                    [price]="atmCalculation.entryPrice"></app-price-tick-currency>
+                    [price]="orderTicket.entryPrice"></app-price-tick-currency>
                 <app-price-tick-currency
                     label="Cancel Price" 
                     [step]=".01"
-                    [price]="atmCalculation.cancelOrderPrice"></app-price-tick-currency>
+                    [price]="orderTicket.orderTicketPrice.cancelOrder"></app-price-tick-currency>
                 <app-price-tick-currency
                     label="Quantity" 
                     (change)="onQuantityChange($event)"
-                    [price]="selectedATMStrategy.quantity"></app-price-tick-currency>
+                    [price]="orderTicket.quantity"></app-price-tick-currency>
             </div>
             <div>
                 <mat-form-field class="atm-strategy-contianer">
@@ -34,41 +34,39 @@
                 </mat-form-field>
                 <div class="stop-loss-take-profit-container">
                     <div>
-                        <app-price-tick-currency *ngFor="let stopLossPrice of atmCalculation.stopLossPrice; let i = index" 
+                        <app-price-tick-currency *ngFor="let stopLoss of orderTicket.orderTicketPrice.stopLoss; let i = index" 
                             label="Stop Loss {{i+1}}" 
-                            [price]="stopLossPrice"
+                            [price]="stopLoss"
                             [step]=".1"
-                            [entry]="atmCalculation.entryPrice"
+                            [entry]="orderTicket.entry"
                             [type]="orderTicket.type"
                             [ticker]="orderTicket.ticker"></app-price-tick-currency>
-                        <div *ngIf="selectedATMStrategy.missingStopLoss">
-                            <div class="stop-loss-take-profit-message-container">
-                                <div class="stop-loss-take-profit-message stop-loss-warning-message">Unlimited Loss Possible</div>
-                                <div>No S/L on {{selectedATMStrategy.missingStopLossCount}} Contracts</div>
-                            </div>
-                        </div>
                     </div>
                     <div>
-                        <app-price-tick-currency *ngFor="let takeProfitPrice of atmCalculation.takeProfitPrice; let i = index" 
+                        <app-price-tick-currency *ngFor="let takeProfit of orderTicket.orderTicketPrice.takeProfit; let i = index" 
                             label="Take Profit {{i+1}}" 
-                            [price]="takeProfitPrice"
+                            [price]="takeProfit"
                             [step]=".1"
-                            [entry]="atmCalculation.entryPrice"
+                            [entry]="orderTicket.entry"
                             [type]="orderTicket.type"
                             [ticker]="orderTicket.ticker"></app-price-tick-currency>
-                        <div *ngIf="selectedATMStrategy.missingTakeProfit">
-                            <div class="stop-loss-take-profit-message-container">
-                                <div class="stop-loss-take-profit-message take-profilt-warning-message">Missing Take Profit</div>
-                                <div>No T/P on {{selectedATMStrategy.missingTakeProfileCount}} Contracts</div>
-                            </div>
                         </div>
-                    </div>
-                </div>              
+                    </div>              
+                </div>
             </div>
-        </div>
-        <div style="display:flex;justify-content: flex-end;">
-            <button (click)="resetTicket()" mat-raised-button>Reset</button>
-            <button (click)="submitTicket()" mat-raised-button>Submit</button>
-        </div>
-    </mat-card-content>
-</mat-card>
+            <div style="display:flex;justify-content: flex-end;">
+                <div style="flex: 1 1 auto;display:flex;flex-direction:column;">
+                    <div *ngIf="orderTicket.missingStopLossCount" class="stop-loss-take-profit-message-container stop-loss-warning-message">
+                        WARNING!! Missing S/L on {{orderTicket.missingStopLossCount}} contracts
+                    </div>
+                    <div *ngIf="orderTicket.missingTakeProfitCount" class="stop-loss-take-profit-message-container take-profilt-warning-message">
+                        Missing T/P on {{orderTicket.missingTakeProfitCount}} contracts
+                    </div>
+                </div>
+                <div style="justify-content: flex-end;">
+                    <button (click)="resetTicket()" mat-raised-button>Reset</button>
+                    <button (click)="submitTicket()" mat-raised-button>Submit</button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>

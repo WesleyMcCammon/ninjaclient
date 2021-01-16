@@ -50,27 +50,17 @@
     font-size: 12px;
 }
 
-.stop-loss-take-profit-message-container {
-    width: 95%;
-}
-
 .stop-loss-take-profit-message {
-    color: white;
-    border-radius: 2px;
-    padding: 4px 4px;
+    padding: 8px 4px;;
+    font-size: 12px;
 
 }
 .stop-loss-warning-message {
-    background-color: maroon;
+    color: maroon;
 }
 
 .take-profilt-warning-message {
-    background-color: green;
-}
-
-.stop-loss-take-profit-message-container > div:nth-child(2) {
-    margin-left: 4px;
-    font-size: 12px;
+    color: green;
 }
 
 .button-container {

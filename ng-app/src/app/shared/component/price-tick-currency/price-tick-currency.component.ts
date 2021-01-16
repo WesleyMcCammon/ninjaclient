@@ -28,7 +28,9 @@ export class PriceTickCurrencyComponent implements OnInit {
   recalculate() {
     this.showTicks = this.ticker.length > 0;
     const ticks = (((this.price - this.entry) * (this.type === 'sell' ? -1 : 1)) * 100)/100;
-    this.ticks = ticks;
+    const ticksDiff = Math.round(this.futuresValueService.ticksPerPoint(this.ticker) * ticks);
+    this.ticks = ticksDiff;
+    //this.ticks = ticks;
   }
 
   onKeyUp(event){

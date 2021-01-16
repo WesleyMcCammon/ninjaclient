@@ -48,49 +48,28 @@ export class TestPageComponent implements OnInit {
       this.orderTicket.trigger, this.orderTicket.type, this.selectedATMStrategy);
     atmCalculation.stopLossPrice = atmCalculation.stopLossPrice.filter(s => !isNaN(s));
     atmCalculation.takeProfitPrice = atmCalculation.takeProfitPrice.filter(s => !isNaN(s));
-
-    const stopLossTicks: number[] = [];
-    this.selectedATMStrategy.stopLoss.forEach(sl => {
-      stopLossTicks.push(this.futuresValueService.dollarsPriceAdjust(this.orderTicket2.ticker, sl));
-    });
-
-    const takeProfitTicks: number[] = [];
-    this.selectedATMStrategy.takeProfit.forEach(tp => {
-      takeProfitTicks.push(this.futuresValueService.dollarsPriceAdjust(this.orderTicket2.ticker, tp));
-    });
-
+    this.atmCalculation = atmCalculation;
+    
     const cancelOrder: number = this.futuresValueService.tickPriceAdjust(this.orderTicket2.ticker, this.selectedATMStrategy.cancelOrder);
     const entryOrder: number = this.futuresValueService.tickPriceAdjust(this.orderTicket2.ticker, this.selectedATMStrategy.entry);
-    // this.orderTicket2.setATM(this.selectedATMStrategy.quantity, entryOrder, 
-    //   cancelOrder, stopLossTicks, takeProfitTicks);
 
-    const cancelOrderObj: any = {
-      ticks: this.selectedATMStrategy.cancelOrder, 
-      price: this.futuresValueService.tickPriceAdjust(this.orderTicket2.ticker, this.selectedATMStrategy.cancelOrder)
-    };
-    const stopLossObj: any[] = new Array<any>();
-    const takeProfitObj: any[] = new Array<any>();
+    const stopLossPrice: number[] = new Array<number>();
+    const takeProfitPrice: number[] = new Array<number>();
 
     this.selectedATMStrategy.stopLoss.forEach(sl => {
-      const slObj = {
-        ticks: this.futuresValueService.dollarsToTicks(this.orderTicket2.ticker, sl), 
-        price: this.futuresValueService.dollarsPriceAdjust(this.orderTicket2.ticker, sl)
-      };
-
-      stopLossObj.push(slObj);
+      stopLossPrice.push(this.futuresValueService.dollarsPriceAdjust(this.orderTicket2.ticker, sl));
     });
     
     this.selectedATMStrategy.takeProfit.forEach(tp => {
-      const tpObj = {
-        ticks: this.futuresValueService.dollarsToTicks(this.orderTicket2.ticker, tp), 
-        price: this.futuresValueService.dollarsPriceAdjust(this.orderTicket2.ticker, tp)
-      };
-
-      takeProfitObj.push(tpObj);
+      takeProfitPrice.push(this.futuresValueService.dollarsPriceAdjust(this.orderTicket2.ticker, tp));
     });
-    this.atmCalculation = atmCalculation;
-
-    this.orderTicket2.SetMe(this.selectedATMStrategy.quantity, entryOrder, cancelOrderObj, stopLossObj, takeProfitObj);
+    
+    this.orderTicket2.setATM(
+      this.selectedATMStrategy.quantity, 
+      entryOrder, 
+      cancelOrder, 
+      stopLossPrice, 
+      takeProfitPrice);
   }
 
 }

@@ -16,7 +16,6 @@ export class TicketComponent implements OnInit {
   atmStragegyList: ATMStrategy[] = new Array<ATMStrategy>();
   selectedATMStrategy: ATMStrategy;
   orderTicket: OrderTicket;
-  atmCalculation: ATMCalculation
 
   constructor(private atmStrategyService: AtmStrategyService, 
     private orderService: OrderService, 
@@ -26,27 +25,43 @@ export class TicketComponent implements OnInit {
   ngOnInit(): void {
     this.atmStrategyService.getStrategies().subscribe((atmStragegyList: ATMStrategy[]) => {
       this.atmStragegyList = atmStragegyList;
+      this.selectedATMStrategy = this.atmStragegyList[3];
     });
 
     this.orderService.orderTicketInitiated.subscribe((orderTicket: OrderTicket) => {
-      this.orderTicket = orderTicket;
+      this.orderTicket = new OrderTicket(orderTicket.ticker, orderTicket.technicalStrategy, 
+        orderTicket.name,
+        orderTicket.trigger, orderTicket.type);  
+      
       this.getATMCalculation();
     });
-
-    const defaultATMStrategy = this.settingsService.defaultATMStrategy();
-    if(defaultATMStrategy.length > 0) {
-      this.selectedATMStrategy = this.atmStragegyList.find(a => a.name === defaultATMStrategy);
-    }
   }
 
   private getATMCalculation() {
-    const atmCalculation = this.orderService.calculatePrices(this.orderTicket.ticker, 
-      this.orderTicket.trigger, this.orderTicket.type, this.selectedATMStrategy);
-    atmCalculation.stopLossPrice = atmCalculation.stopLossPrice.filter(s => !isNaN(s));
-    atmCalculation.takeProfitPrice = atmCalculation.takeProfitPrice.filter(s => !isNaN(s));
+    
+    const cancelOrder: number = this.futuresValueService.tickPriceAdjust(this.orderTicket.ticker, this.selectedATMStrategy.cancelOrder);
+    const entryOrder: number = this.futuresValueService.tickPriceAdjust(this.orderTicket.ticker, this.selectedATMStrategy.entry);
 
-    this.atmCalculation = atmCalculation;
+    const stopLossPrice: number[] = new Array<number>();
+    const takeProfitPrice: number[] = new Array<number>();
+
+    this.selectedATMStrategy.stopLoss.forEach(sl => {
+      stopLossPrice.push(this.futuresValueService.dollarsPriceAdjust(this.orderTicket.ticker, sl));
+    });
+    
+    this.selectedATMStrategy.takeProfit.forEach(tp => {
+      takeProfitPrice.push(this.futuresValueService.dollarsPriceAdjust(this.orderTicket.ticker, tp));
+    });
+    
+    this.orderTicket.setATM(
+      this.selectedATMStrategy.quantity, 
+      entryOrder, 
+      cancelOrder, 
+      stopLossPrice, 
+      takeProfitPrice);
   }
+
+
 
   stopLossTicks(index){
     return this.selectedATMStrategy.stopLoss[index];
@@ -66,3 +81,4 @@ export class TicketComponent implements OnInit {
     console.log('submit ticket');
   }
 }
+
