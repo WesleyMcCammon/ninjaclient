@@ -13,7 +13,7 @@
                 <app-price-tick-currency
                     label="Entry Price" 
                     [step]=".01"
-                    [price]="orderTicket.entryPrice"></app-price-tick-currency>
+                    [price]="orderTicket.entry"></app-price-tick-currency>
                 <app-price-tick-currency
                     label="Cancel Price" 
                     [step]=".01"
@@ -54,8 +54,8 @@
                     </div>              
                 </div>
             </div>
-            <div style="display:flex;justify-content: flex-end;">
-                <div style="flex: 1 1 auto;display:flex;flex-direction:column;">
+            <div class="ticket-footer">
+                <div class="ticket-messages">
                     <div *ngIf="orderTicket.missingStopLossCount" class="stop-loss-take-profit-message-container stop-loss-warning-message">
                         WARNING!! Missing S/L on {{orderTicket.missingStopLossCount}} contracts
                     </div>
@@ -63,7 +63,7 @@
                         Missing T/P on {{orderTicket.missingTakeProfitCount}} contracts
                     </div>
                 </div>
-                <div style="justify-content: flex-end;">
+                <div class="button-container">
                     <button (click)="resetTicket()" mat-raised-button>Reset</button>
                     <button (click)="submitTicket()" mat-raised-button>Submit</button>
                 </div>

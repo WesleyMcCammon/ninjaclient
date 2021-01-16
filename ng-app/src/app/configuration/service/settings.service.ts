@@ -7,7 +7,7 @@ export class SettingsService {
 
   constructor() { }
 
-  public defaultATMStrategy(): string {
-    return 'Reversal 5';
+  public getDefaultATM(): number {
+    return 2;
   }
 }

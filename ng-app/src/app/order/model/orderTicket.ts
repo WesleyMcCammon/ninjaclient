@@ -45,7 +45,7 @@ export class OrderTicket {
     public setATM(quantity: number, entry: number, cancelOrder: number, stopLoss: any[], takeProfit: any[]) {
         const isBuy: boolean = this._type === 'buy';        
         this._quantity = quantity;
-        this._entry = isBuy ? this._trigger + entry : this._trigger - entry;    
+        this._entry = isBuy ? this._trigger + entry : this._trigger - entry;  
         
         const stopLossPrice: number[] = [];
         stopLoss.forEach(sl => {

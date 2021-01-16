@@ -28,9 +28,6 @@ export class AtmStrategyComponent implements OnInit {
     private settingsService: SettingsService) { }
 
   ngOnInit(): void {
-    if(this.settingsService.defaultATMStrategy()) {
-      
-    }
   }
 
   calculatePrices() {

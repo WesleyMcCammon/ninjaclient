@@ -44,12 +44,6 @@
     width: 45%;
 }
 
-.stop-loss-warning-message-container {  
-    box-shadow: 2px #efefef #efefef;
-    display:flex;flex-direction:column;
-    font-size: 12px;
-}
-
 .stop-loss-take-profit-message {
     padding: 8px 4px;;
     font-size: 12px;
@@ -64,11 +58,17 @@
 }
 
 .button-container {
-    display:flex;
-    flex-direction: row;
     justify-content: flex-end;
 }
 
 .mat-button-base {
     margin: 8px 8px 8px 0;
+}
+
+.ticket-footer {
+    display:flex;justify-content: flex-end;
+}
+
+.ticket-messages {
+    flex: 1 1 auto;display:flex;flex-direction:column;
 }

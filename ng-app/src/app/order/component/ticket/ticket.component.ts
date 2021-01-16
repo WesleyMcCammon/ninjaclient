@@ -4,7 +4,6 @@ import { OrderTicket } from '../../model/orderTicket';
 import { AtmStrategyService } from '../../service/atm-strategy.service';
 import { OrderService } from '../../service/order.service';
 import { SettingsService } from '../../../configuration/service/settings.service';
-import { ATMCalculation } from '../../model/atmCalculation';
 import { FuturesValueService } from '../../../reference/service/futures-value.service';
 
 @Component({
@@ -25,14 +24,12 @@ export class TicketComponent implements OnInit {
   ngOnInit(): void {
     this.atmStrategyService.getStrategies().subscribe((atmStragegyList: ATMStrategy[]) => {
       this.atmStragegyList = atmStragegyList;
-      this.selectedATMStrategy = this.atmStragegyList[3];
     });
 
     this.orderService.orderTicketInitiated.subscribe((orderTicket: OrderTicket) => {
-      this.orderTicket = new OrderTicket(orderTicket.ticker, orderTicket.technicalStrategy, 
-        orderTicket.name,
-        orderTicket.trigger, orderTicket.type);  
-      
+      this.orderTicket = new OrderTicket(orderTicket.ticker, orderTicket.technicalStrategy, orderTicket.name, orderTicket.trigger, orderTicket.type);  
+      const defaultATMStrategyId = this.settingsService.getDefaultATM();
+      this.selectedATMStrategy = this.atmStragegyList.find(a => a.id === defaultATMStrategyId);
       this.getATMCalculation();
     });
   }
