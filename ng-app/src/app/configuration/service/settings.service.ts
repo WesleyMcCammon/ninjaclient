@@ -8,6 +8,6 @@ export class SettingsService {
   constructor() { }
 
   public defaultATMStrategy(): string {
-    return 'Reversal 1';
+    return 'Reversal 5';
   }
 }

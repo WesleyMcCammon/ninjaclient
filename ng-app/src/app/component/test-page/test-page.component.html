@@ -1,0 +1,85 @@
+{{strat}}
+<div style="display:flex;flex-direction:row">
+    <div *ngIf="orderTicket" style="display:flex;flex-direction:column;width:45%">
+        <h1>Original</h1>
+        <table style="width:95%">
+            <tr>
+                <td>Type</td>
+                <td>{{orderTicket.type}}</td>
+            </tr>
+            <tr>
+                <td>Trigger</td>
+                <td>{{orderTicket.trigger}}</td>
+            </tr>
+            <tr>
+                <td>Entry</td>
+                <td>{{atmCalculation.entryPrice}}</td>
+            </tr>
+            <tr>
+                <td>Cancel</td>
+                <td>{{atmCalculation.cancelOrderPrice}}</td>
+            </tr>
+            <tr>
+                <td>Quantity</td>
+                <td>{{selectedATMStrategy.quantity}}</td>
+            </tr>
+            <tr *ngFor="let stopLossPrice of atmCalculation.stopLossPrice; let i = index">
+                <td>Stop Loss {{i+1}}</td>
+                <td>{{stopLossPrice}}</td>
+            </tr>
+            <tr *ngFor="let takeProfitPrice of atmCalculation.takeProfitPrice; let i = index">
+                <td>Take Profit {{i+1}}</td>
+                <td>{{takeProfitPrice}}</td>
+            </tr>
+            <tr>
+                <td>Missing StopLoss</td>
+                <td>{{selectedATMStrategy.missingStopLoss}}</td>
+            </tr>
+            <tr>
+                <td>Missing TakeProfit</td>
+                <td>{{selectedATMStrategy.missingTakeProfit}}</td>
+            </tr>
+        </table>
+    </div>
+    <div *ngIf="orderTicket2" style="display:flex;flex-direction:column;width:45%">
+        <h1>New</h1>
+        <table style="width:95%">
+            <tr>
+                <td>Type</td>
+                <td>{{orderTicket2.type}}</td>
+            </tr>
+            <tr>
+                <td>Trigger</td>
+                <td>{{orderTicket2.trigger}}</td>
+            </tr>
+            <tr>
+                <td>Entry</td>
+                <td>{{orderTicket2.entry}}</td>
+            </tr>
+            <tr>
+                <td>Cancel</td>
+                <td>{{orderTicket2.orderTicketPriceDelta.cancelOrder}}</td>
+            </tr>
+            <tr>
+                <td>Quantity</td>
+                <td>{{orderTicket2.quantity}}</td>
+            </tr>
+            <tr *ngFor="let stopLoss of orderTicket2.orderTicketPriceDelta.stopLoss; let i = index">
+                <td>Stop Loss {{i+1}}</td>
+                <td>{{stopLoss}} ({{orderTicket2._orderTicketPrice.stopLoss[i]}})</td>
+            </tr>
+            <tr *ngFor="let takeProfit of orderTicket2.orderTicketPriceDelta.takeProfit; let i = index">
+                <td>Take Profit {{i+1}}</td>
+                <td>{{takeProfit}} ({{orderTicket2._orderTicketPrice.takeProfit[i]}})</td>
+            </tr>
+            <tr>
+                <td>Missing StopLoss</td>
+                <td>{{orderTicket2.missingStopLossCount}}</td>
+            </tr>
+            <tr>
+                <td>Missing TakeProfit</td>
+                <td>{{orderTicket2.missingTakeProfitCount}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

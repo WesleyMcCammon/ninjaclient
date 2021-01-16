@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { OrderService } from '../../../order/service/order.service';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { OrderTicket } from 'src/app/order/model/orderTicket';
 
 @Component({
   selector: 'app-pivot-table-item',
@@ -22,12 +23,7 @@ export class PivotTableItemComponent implements OnInit {
   }
 
   issueOrderTicket(type: string) {
-    this.orderService.initiateOrderTicket({
-      ticker: this.ticker, 
-      name: this.pivotPointName, 
-      technicalStrategy: this.pivotName, 
-      trigger: this.pivotValue, 
-      type: type
-    });
+    const orderTicket: OrderTicket = new OrderTicket(this.ticker, this.pivotName, this.pivotPointName, this.pivotValue, type);
+    this.orderService.initiateOrderTicket(orderTicket);
   }
 }

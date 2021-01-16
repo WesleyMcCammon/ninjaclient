@@ -12,10 +12,10 @@ export class AtmStrategyService {
 
   public getStrategies(): Observable<ATMStrategy[]> {
     this.atmStrategy.push(new ATMStrategy('Reversal 1', 1, 4, [6], [6], 8));
-    this.atmStrategy.push(new ATMStrategy('Reversal 2', 2, 4, [220, 250], [600, 600], 100));
-    this.atmStrategy.push(new ATMStrategy('Reversal 3', 3, 3, [210, 400, 250], [600, 1200, 1000], 100));
-    this.atmStrategy.push(new ATMStrategy('Reversal 4', 4, 2, [100], [600, 750], 100));
-    this.atmStrategy.push(new ATMStrategy('Reversal 5', 5, 1, [45, 210, 220, 230, 240, 250, 260], [600, 610, 620, 630, 640, 650, 660], 100));
+    this.atmStrategy.push(new ATMStrategy('Reversal 2', 2, 4, [220, 250], [600, 600], 8));
+    this.atmStrategy.push(new ATMStrategy('Reversal 3', 3, 3, [210, 400, 250], [600, 1200, 1000], 8));
+    this.atmStrategy.push(new ATMStrategy('Reversal 4', 4, 2, [100], [600, 750], 8));
+    this.atmStrategy.push(new ATMStrategy('Reversal 5', 5, 1, [10, 20, 30, 40, 50], [10, 20, 30, 40, 50], 3));
 
     return of(this.atmStrategy);
   }

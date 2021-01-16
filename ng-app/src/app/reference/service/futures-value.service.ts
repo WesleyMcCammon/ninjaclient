@@ -36,4 +36,16 @@ export class FuturesValueService {
     
     return ticks;
   }
+
+  public dollarsPriceAdjust(ticker: string,  amount: number): number {
+    const ticksPerPoint = this.ticksPerPoint(ticker);
+    const numberTicks = this.dollarsToTicks(ticker, amount);
+
+    return (numberTicks/ticksPerPoint);
+  }
+
+  public tickPriceAdjust(ticker: string, ticks: number): number {
+    const ticksPerPoint = this.ticksPerPoint(ticker);
+    return (ticks/ticksPerPoint);
+  }
 }

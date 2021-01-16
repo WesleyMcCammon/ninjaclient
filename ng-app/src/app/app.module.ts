@@ -15,6 +15,7 @@ import { PivotTableItemComponent } from './pivot/component/pivot-table-item/pivo
 import { TicketComponent } from './order/component/ticket/ticket.component';
 import { AtmStrategyComponent } from './order/component/atm-strategy/atm-strategy.component';
 import { PriceTickCurrencyComponent } from './shared/component/price-tick-currency/price-tick-currency.component';
+import { TestPageComponent } from './component/test-page/test-page.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { PriceTickCurrencyComponent } from './shared/component/price-tick-curren
     PivotTableItemComponent,
     TicketComponent,
     AtmStrategyComponent,
-    PriceTickCurrencyComponent
+    PriceTickCurrencyComponent,
+    TestPageComponent
   ],
   imports: [
     BrowserModule,
