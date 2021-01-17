@@ -16,6 +16,7 @@ import { TicketComponent } from './order/component/ticket/ticket.component';
 import { AtmStrategyComponent } from './order/component/atm-strategy/atm-strategy.component';
 import { PriceTickCurrencyComponent } from './shared/component/price-tick-currency/price-tick-currency.component';
 import { TestPageComponent } from './component/test-page/test-page.component';
+import { NavMenuComponent } from './component/nav-menu/nav-menu.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { TestPageComponent } from './component/test-page/test-page.component';
     TicketComponent,
     AtmStrategyComponent,
     PriceTickCurrencyComponent,
-    TestPageComponent
+    TestPageComponent,
+    NavMenuComponent
   ],
   imports: [
     BrowserModule,

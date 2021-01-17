@@ -2,3 +2,11 @@
 
 html, body { height: 100%; }
 body { margin: 20; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+h1.page-title {
+    color: steelblue;
+}
+
+h2.page-section {
+    color: salmon;
+}
