@@ -26,9 +26,9 @@
                     [price]="orderTicket.quantity"></app-price-tick-currency>
             </div>
             <div>
-                <mat-form-field class="atm-strategy-contianer">
-                    <mat-label>ATM Strategy</mat-label>
-                    <mat-select [(value)]="selectedAutoTradeSetting" (selectionChange)="getATMCalculation()">
+                <mat-form-field class="stoploss-takeprofit-setting-contianer">
+                    <mat-label>Stop Loss / Take Profit Setting</mat-label>
+                    <mat-select [(value)]="selectedAutoTradeSetting" (selectionChange)="autoTradeCalculations()">
                         <mat-option *ngFor="let autoTradingSetting of autoTradeSettingsService.autoTradingSettings" [value]="autoTradingSetting">
                         {{autoTradingSetting.name}}
                         </mat-option>

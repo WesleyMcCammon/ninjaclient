@@ -1,3 +1,3 @@
 export interface ConfigrationSettings {
-    defaultATM: number;
+    defaultAutoTradingId: number;
   }

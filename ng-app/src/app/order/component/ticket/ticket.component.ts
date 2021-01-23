@@ -30,28 +30,20 @@ export class TicketComponent implements OnInit {
   }
 
   private orderTicketLoaded() { 
-    const defaultATMStrategyId = this.settingsService.getDefaultATM();
+    const defaultAutoTradingId = this.settingsService.getDefaultAutoTradingId();
     this.selectedAutoTradeSetting = this.autoTradeSettingsService
-      .autoTradingSettings.find(a => a.id === defaultATMStrategyId);
-    this.getATMCalculation();
+      .autoTradingSettings.find(a => a.id === defaultAutoTradingId);
+    this.autoTradeCalculations();
   }
   
-  private getATMCalculation() {
+  private autoTradeCalculations() {
     const cancelOrder: number = this.futuresValueService
       .tickPriceAdjust(this.orderTicket.ticker, this.selectedAutoTradeSetting.cancelOrder);
     const entryOrderPrice: number = this.futuresValueService
       .tickPriceAdjust(this.orderTicket.ticker, this.selectedAutoTradeSetting.entry);
     
-    this.setATM(this.selectedAutoTradeSetting.quantity, 
-      entryOrderPrice, 
-      cancelOrder, 
-      this.calculateStopLoss(), 
-      this.calculateTakeProfit());
-  }
-
-  setATM(quantity: number, entryOrder: number, cancelOrder: number, stopLossPrice: number[], takeProfitPrice: number[]) {
-    this.orderTicket.setATM(
-      quantity, entryOrder, cancelOrder, stopLossPrice, takeProfitPrice);    
+    this.orderTicket.updateOrderTicket(
+      this.selectedAutoTradeSetting.quantity, entryOrderPrice, cancelOrder, this.calculateStopLoss(), this.calculateTakeProfit());
   }
 
   calculateStopLoss(): number[]{
@@ -81,7 +73,7 @@ export class TicketComponent implements OnInit {
   // entry is originally set in ticks, this event changes the price
   onEntryChange(event) {
     if(!isNaN(event)) {
-      this.orderTicket.entry = (parseFloat(event)*100/100);
+      this.orderTicket.entry = (parseFloat(event)*100)/100;
     }
   }
 

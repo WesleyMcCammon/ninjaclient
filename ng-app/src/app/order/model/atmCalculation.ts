@@ -1,4 +1,4 @@
-export interface ATMCalculation {
+export interface AutoTradeCalculation {
     entryPrice: number;
     cancelOrderPrice: number;
     stopLossPrice: number[];

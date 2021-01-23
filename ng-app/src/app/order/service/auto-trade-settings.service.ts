@@ -11,8 +11,8 @@ export class AutoTradeSettingsService {
   constructor() { }
 
   public Initialize() {
-    this.getStrategies().subscribe((atm: AutoTradeSetting[]) => {
-      this.autoTradingSettings = atm;
+    this.getStrategies().subscribe((autoTradingSettings: AutoTradeSetting[]) => {
+      this.autoTradingSettings = autoTradingSettings;
     });
   }
 

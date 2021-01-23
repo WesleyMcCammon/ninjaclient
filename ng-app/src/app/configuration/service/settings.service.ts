@@ -17,13 +17,13 @@ export class SettingsService {
     });
   }
 
-  public getDefaultATM(): number {
-    return this.configrationSettings.defaultATM;
+  public getDefaultAutoTradingId(): number {
+    return this.configrationSettings.defaultAutoTradingId;
   }
 
   private loadConfigurationSettings(): Observable<ConfigrationSettings> {
     const configSettings: ConfigrationSettings = {
-      defaultATM: 2
+      defaultAutoTradingId: 2
     }
 
     return of(configSettings);

@@ -25,7 +25,6 @@ export class OrderTicket {
     set trigger(value: number) { this._trigger = value; }    
     get entry(): number { return this._entry; }
     set entry(value: number) { 
-        console.log('change entry price ' + value); 
         this._entry = value; 
         this.calculateTakeProfit(); 
         this.calculateStopLoss();
@@ -52,7 +51,7 @@ export class OrderTicket {
         this._type = type;
     }
 
-    public setATM(quantity: number, entry: number, cancelOrder: number, stopLoss: number[], takeProfit: number[]) {
+    public updateOrderTicket(quantity: number, entry: number, cancelOrder: number, stopLoss: number[], takeProfit: number[]) {
         const isBuy: boolean = this._type === 'buy';        
         this._quantity = quantity;
         this._entry = isBuy ? this._trigger + entry : this._trigger - entry;  
