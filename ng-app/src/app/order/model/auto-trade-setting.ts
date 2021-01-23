@@ -1,4 +1,4 @@
-export class ATMStrategy {
+export class AutoTradeSetting {
     private _id: number;
     private _name: string;
     private _entry: number;
@@ -10,6 +10,7 @@ export class ATMStrategy {
     get id(): number { return this._id; }
     get name(): string { return this._name; }
     get entry(): number { return this._entry; }
+    set entry(value: number) {this._entry = value;}
 
     get quantity(): number { return this._quantity; }
     set quantity(value: number) { this._quantity = value; }

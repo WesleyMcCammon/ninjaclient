@@ -13,10 +13,15 @@ import { PivotTableComponent } from './pivot/component/pivot-table/pivot-table.c
 import { FormatNumberNoCommaPipe } from './pipe/format-number-no-comma.pipe';
 import { PivotTableItemComponent } from './pivot/component/pivot-table-item/pivot-table-item.component';
 import { TicketComponent } from './order/component/ticket/ticket.component';
-import { AtmStrategyComponent } from './order/component/atm-strategy/atm-strategy.component';
 import { PriceTickCurrencyComponent } from './shared/component/price-tick-currency/price-tick-currency.component';
 import { TestPageComponent } from './component/test-page/test-page.component';
 import { NavMenuComponent } from './component/nav-menu/nav-menu.component';
+
+import { SettingsService } from './configuration/service/settings.service';
+import { AutoTradeSettingsService } from './order/service/auto-trade-settings.service';
+
+import { NgxMasonryModule } from 'ngx-masonry';
+ 
 
 @NgModule({
   declarations: [
@@ -28,7 +33,6 @@ import { NavMenuComponent } from './component/nav-menu/nav-menu.component';
     FormatNumberNoCommaPipe,
     PivotTableItemComponent,
     TicketComponent,
-    AtmStrategyComponent,
     PriceTickCurrencyComponent,
     TestPageComponent,
     NavMenuComponent
@@ -39,7 +43,8 @@ import { NavMenuComponent } from './component/nav-menu/nav-menu.component';
     BrowserAnimationsModule,
     MaterialDesignModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMasonryModule
   ],
   providers: [],
   bootstrap: [AppComponent],

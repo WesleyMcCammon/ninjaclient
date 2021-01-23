@@ -1,80 +1,104 @@
-<div class="pivotCalculationName">{{pivotCalculation.name}}</div>
-<table class="pivot-table">
-    <tr *ngIf="showHeader">
-        <th>R3</th>
-        <th>R2</th>
-        <th>R1</th>
-        <th>Pivot</th>
-        <th>S1</th>
-        <th>S2</th>
-        <th>S3</th>
-    </tr>
-    <tr>
-        <td>
-            <ng-container [ngSwitch]="hasValue(pivotCalculation.pivotLevel.r3)">
-                <ng-container *ngSwitchCase="true">
-                    <app-pivot-table-item 
-                        [ticker]="pivotCalculation.ticker" 
-                        [pivotPointName]="pivotCalculation.name" 
-                        [pivotName]="'R3'" 
-                        [pivotValue]="pivotCalculation.pivotLevel.r3" 
-                        [liveMarketData]="liveMarketData"></app-pivot-table-item>
-                </ng-container>
-                <ng-container *ngSwitchDefault>-</ng-container>
-            </ng-container>        
-        </td>
-        <td>
-            <app-pivot-table-item 
-                [ticker]="pivotCalculation.ticker" 
-                [pivotPointName]="pivotCalculation.name" 
-                [pivotName]="'R2'" 
-                [pivotValue]="pivotCalculation.pivotLevel.r2" 
-                [liveMarketData]="liveMarketData"></app-pivot-table-item>
-        </td>
-        <td>
-            <app-pivot-table-item 
-                [ticker]="pivotCalculation.ticker" 
-                [pivotPointName]="pivotCalculation.name" 
-                [pivotName]="'R1'" 
-                [pivotValue]="pivotCalculation.pivotLevel.r1" 
-                [liveMarketData]="liveMarketData"></app-pivot-table-item>
-        </td>
-        <td>
-            <app-pivot-table-item 
-                [ticker]="pivotCalculation.ticker" 
-                [pivotPointName]="pivotCalculation.name" 
-                [pivotName]="'Pivot'" 
-                [pivotValue]="pivotCalculation.pivotLevel.pivot" 
-                [liveMarketData]="liveMarketData"></app-pivot-table-item>
-        </td>
-        <td>
-            <app-pivot-table-item 
-                [ticker]="pivotCalculation.ticker" 
-                [pivotPointName]="pivotCalculation.name" 
-                [pivotName]="'S1'" 
-                [pivotValue]="pivotCalculation.pivotLevel.s1" 
-                [liveMarketData]="liveMarketData"></app-pivot-table-item>
-        </td>
-        <td>
-            <app-pivot-table-item 
-                [ticker]="pivotCalculation.ticker" 
-                [pivotPointName]="pivotCalculation.name" 
-                [pivotName]="'S2'" 
-                [pivotValue]="pivotCalculation.pivotLevel.s2" 
-                [liveMarketData]="liveMarketData"></app-pivot-table-item>
-        </td>
-        <td>
-            <ng-container [ngSwitch]="hasValue(pivotCalculation.pivotLevel.s3)">
-                <ng-container *ngSwitchCase="true">
-                    <app-pivot-table-item 
-                        [ticker]="pivotCalculation.ticker" 
-                        [pivotPointName]="pivotCalculation.name" 
-                        [pivotName]="'S3'" 
-                        [pivotValue]="pivotCalculation.pivotLevel.s3" 
-                        [liveMarketData]="liveMarketData"></app-pivot-table-item>
-                </ng-container>
-                <ng-container *ngSwitchDefault>-</ng-container>
-            </ng-container>        
-        </td>
-    </tr>
-</table>
+
+<div *ngFor="let pivot of pivots" class="container">
+    <mat-card>
+        <mat-card-header>
+        <div class="header">
+            <h2 class="page-section">{{pivot.ticker}}</h2>  
+        </div>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-card class="pivot-card-row">
+            <mat-card-content>
+            <div *ngFor="let pivotCalculation of pivot.getPivotCalculations();let pivotCalculationIndex=index;">    
+                <div class="pivotCalculationName">{{pivotCalculation.name}}</div>
+                    <table class="pivot-table">
+                        <tr *ngIf="pivotCalculationIndex === 0">
+                            <th>R3</th>
+                            <th>R2</th>
+                            <th>R1</th>
+                            <th>Pivot</th>
+                            <th>S1</th>
+                            <th>S2</th>
+                            <th>S3</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ng-container [ngSwitch]="hasValue(pivotCalculation.pivotLevel.r3)">
+                                    <ng-container *ngSwitchCase="true">
+                                        <app-pivot-table-item 
+                                            [ticker]="pivotCalculation.ticker" 
+                                            [pivotPointName]="pivotCalculation.name" 
+                                            [pivotName]="'R3'" 
+                                            [pivotValue]="pivotCalculation.pivotLevel.r3" 
+                                            [liveMarketData]="liveMarketData"></app-pivot-table-item>
+                                    </ng-container>
+                                    <ng-container *ngSwitchDefault>-</ng-container>
+                                </ng-container>        
+                            </td>
+                            <td>
+                                <app-pivot-table-item 
+                                    [ticker]="pivotCalculation.ticker" 
+                                    [pivotPointName]="pivotCalculation.name" 
+                                    [pivotName]="'R2'" 
+                                    [pivotValue]="pivotCalculation.pivotLevel.r2" 
+                                    [liveMarketData]="liveMarketData"></app-pivot-table-item>
+                            </td>
+                            <td>
+                                <app-pivot-table-item 
+                                    [ticker]="pivotCalculation.ticker" 
+                                    [pivotPointName]="pivotCalculation.name" 
+                                    [pivotName]="'R1'" 
+                                    [pivotValue]="pivotCalculation.pivotLevel.r1" 
+                                    [liveMarketData]="liveMarketData"></app-pivot-table-item>
+                            </td>
+                            <td>
+                                <app-pivot-table-item 
+                                    [ticker]="pivotCalculation.ticker" 
+                                    [pivotPointName]="pivotCalculation.name" 
+                                    [pivotName]="'Pivot'" 
+                                    [pivotValue]="pivotCalculation.pivotLevel.pivot" 
+                                    [liveMarketData]="liveMarketData"></app-pivot-table-item>
+                            </td>
+                            <td>
+                                <app-pivot-table-item 
+                                    [ticker]="pivotCalculation.ticker" 
+                                    [pivotPointName]="pivotCalculation.name" 
+                                    [pivotName]="'S1'" 
+                                    [pivotValue]="pivotCalculation.pivotLevel.s1" 
+                                    [liveMarketData]="liveMarketData"></app-pivot-table-item>
+                            </td>
+                            <td>
+                                <app-pivot-table-item 
+                                    [ticker]="pivotCalculation.ticker" 
+                                    [pivotPointName]="pivotCalculation.name" 
+                                    [pivotName]="'S2'" 
+                                    [pivotValue]="pivotCalculation.pivotLevel.s2" 
+                                    [liveMarketData]="liveMarketData"></app-pivot-table-item>
+                            </td>
+                            <td>
+                                <ng-container [ngSwitch]="hasValue(pivotCalculation.pivotLevel.s3)">
+                                    <ng-container *ngSwitchCase="true">
+                                        <app-pivot-table-item 
+                                            [ticker]="pivotCalculation.ticker" 
+                                            [pivotPointName]="pivotCalculation.name" 
+                                            [pivotName]="'S3'" 
+                                            [pivotValue]="pivotCalculation.pivotLevel.s3" 
+                                            [liveMarketData]="liveMarketData"></app-pivot-table-item>
+                                    </ng-container>
+                                    <ng-container *ngSwitchDefault>-</ng-container>
+                                </ng-container>        
+                            </td>
+                        </tr>
+                    </table>      
+                <!-- <app-pivot-table 
+                [showHeader]="pivotCalculationIndex === 0" 
+                [pivotCalculation]="pivot.getPivotCalculation(pivotCalculation.name)"></app-pivot-table> -->
+            </div>
+            </mat-card-content>
+        </mat-card>
+        </mat-card-content>
+    </mat-card> 
+    </div>
+
+
+

@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AtmStrategyService } from '../../order/service/atm-strategy.service';
-import { OrderService } from '../../order/service/order.service';
-import { SettingsService } from '../../configuration/service/settings.service';
-import { FuturesValueService } from '../../reference/service/futures-value.service';
 
 @Component({
   selector: 'app-test-page',
@@ -11,10 +7,7 @@ import { FuturesValueService } from '../../reference/service/futures-value.servi
 })
 export class TestPageComponent implements OnInit {
 
-  constructor(private atmStrategyService: AtmStrategyService, 
-    private orderService: OrderService, 
-    private settingsService: SettingsService,
-    private futuresValueService: FuturesValueService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

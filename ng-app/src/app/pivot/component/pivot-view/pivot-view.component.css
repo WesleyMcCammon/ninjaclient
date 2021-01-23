@@ -2,18 +2,6 @@
     margin: 4px 0px;
 }
 
-/* .header {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin-bottom: 7px;
-    font-weight: bold;
-} */
-
-.header > div:nth-child(1) {
-    flex: 1 1 auto;
-}
-
 .pivot-card-row {
     margin-top: 5px;
 }

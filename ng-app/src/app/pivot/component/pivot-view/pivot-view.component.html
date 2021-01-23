@@ -1,21 +1,15 @@
 <h1 class="page-title">Pivot Points</h1>
-<div *ngFor="let pivot of pivots" class="container">
-  <mat-card>
-    <mat-card-header>
-      <div class="header">
-        <h2 class="page-section">{{pivot.ticker}}</h2>  
+<div style="display:flex;flex-direction:row">
+  <div style="flex: 1 1 auto;margin-right:5px">
+    <app-pivot-table></app-pivot-table>
+  </div>
+  <div style="width:50%">
+    <div style="display:flex;flex-direction:column">
+      <div *ngFor="let orderTicket of orderService.orderTickets">
+        <app-ticket [orderTicket]="orderTicket"></app-ticket>
       </div>
-    </mat-card-header>
-    <mat-card-content>
-        <mat-card class="pivot-card-row">
-        <mat-card-content>
-          <div *ngFor="let pivotCalculation of pivot.getPivotCalculations();let pivotCalculationIndex=index;">          
-            <app-pivot-table 
-              [showHeader]="pivotCalculationIndex === 0" 
-              [pivotCalculation]="pivot.getPivotCalculation(pivotCalculation.name)"></app-pivot-table>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </mat-card-content>
-  </mat-card> 
+    </div>
+  </div>
 </div>
+
+

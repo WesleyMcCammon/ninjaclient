@@ -1,7 +1,9 @@
 <mat-card>
     <mat-card-content>
-        <ul>
-            <li (click)="navigate('pivot-view')">Pivot View</li>
-        </ul>
+        <div class='menu-link-container'>
+            <button (click)="navigate('/home')" mat-raised-button>Home</button>
+            <button (click)="navigate('/pivot-view')" mat-raised-button>Pivots</button>
+            <button (click)="navigate('/test')" mat-raised-button>Test</button>
+        </div>
     </mat-card-content>
 </mat-card>

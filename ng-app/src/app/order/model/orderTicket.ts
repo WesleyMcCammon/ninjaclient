@@ -1,6 +1,7 @@
 import { OrderTicketPrice } from './orderTicketPrice';
 
 export class OrderTicket {
+    private _id: string;
     private _ticker: string;
     private _technicalStrategy: string;
     private _name: string;
@@ -9,7 +10,10 @@ export class OrderTicket {
     private _orderTicketPrice: OrderTicketPrice; 
     private _trigger: number;
     private _entry: number = 0;
+    private _stopLossTicks: number[] = [];
+    private _takeProfitTicks: number[] = [];
 
+    get id(): string { return this._id; }
     get ticker(): string { return this._ticker; }    
     get type(): string { return this._type; }
     get quantity(): number { return this._quantity; }
@@ -20,10 +24,15 @@ export class OrderTicket {
     get trigger(): number { return this._trigger; }
     set trigger(value: number) { this._trigger = value; }    
     get entry(): number { return this._entry; }
-    set entry(value: number) { this._entry = value; }
+    set entry(value: number) { 
+        console.log('change entry price ' + value); 
+        this._entry = value; 
+        this.calculateTakeProfit(); 
+        this.calculateStopLoss();
+    }
     
     set stopLoss(value: number[]) { this._orderTicketPrice.stopLoss = value ;}
-    set takeProfile(value: number[]) { this._orderTicketPrice.takeProfit = value; }
+    set takeProfit(value: number[]) { this._orderTicketPrice.takeProfit = value; }
 
     get orderTicketPrice(): OrderTicketPrice { return this._orderTicketPrice; }
 
@@ -31,6 +40,7 @@ export class OrderTicket {
     get missingTakeProfitCount(): number { return this._quantity - this._orderTicketPrice.takeProfit.length; }
 
     constructor(ticker: string, technicalStrategy: string, name: string, trigger: number, type: string) {
+        this._id = ticker + new Date().getTime().toString();
         this._trigger = trigger;
         this._orderTicketPrice = {
             cancelOrder: 0, stopLoss: [], takeProfit: []
@@ -42,40 +52,51 @@ export class OrderTicket {
         this._type = type;
     }
 
-    public setATM(quantity: number, entry: number, cancelOrder: number, stopLoss: any[], takeProfit: any[]) {
+    public setATM(quantity: number, entry: number, cancelOrder: number, stopLoss: number[], takeProfit: number[]) {
         const isBuy: boolean = this._type === 'buy';        
         this._quantity = quantity;
         this._entry = isBuy ? this._trigger + entry : this._trigger - entry;  
-        
-        const stopLossPrice: number[] = [];
-        stopLoss.forEach(sl => {
-            stopLossPrice.push(isBuy ? this._entry - sl : this._entry  + sl)
-        });
-
-        const takeProfitPrice: number[] = [];
-        takeProfit.forEach(tp => {
-            takeProfitPrice.push(isBuy ? this._entry + tp : this._entry - tp)
-        }); 
+        this._stopLossTicks = stopLoss;
+        this._takeProfitTicks = takeProfit;
 
         this._orderTicketPrice.cancelOrder = isBuy ? this._entry - cancelOrder : this._entry  + cancelOrder; 
-        this._orderTicketPrice.stopLoss = stopLossPrice;
-        this._orderTicketPrice.takeProfit = takeProfitPrice;
+        this.calculateStopLoss();
+        this.calculateTakeProfit();
 
     }
 
-    public setStopLossByIndex(index: number, value: number) {
+    public calculateStopLoss() {        
+        const isBuy: boolean = this._type === 'buy';        
+        const stopLossPrice: number[] = [];
+        this._stopLossTicks.forEach(sl => {
+            stopLossPrice.push(isBuy ? this._entry - sl : this._entry  + sl)
+        });
+        this._orderTicketPrice.stopLoss = stopLossPrice;
+    }
+
+    public calculateTakeProfit() {   
+        const isBuy: boolean = this._type === 'buy';  
+
+        const takeProfitPrice: number[] = [];
+        this._takeProfitTicks.forEach(tp => {
+            takeProfitPrice.push(isBuy ? this._entry + tp : this._entry - tp)
+        }); 
+        this._orderTicketPrice.takeProfit = takeProfitPrice;
+
+    }
+    private setStopLossByIndex(index: number, value: number) {
         if(this._orderTicketPrice.stopLoss.length < index) {
             this._orderTicketPrice.stopLoss[index] = value;
         }
     }
 
-    public setTakeProfitByIndex(index: number, value: number) {
+    private setTakeProfitByIndex(index: number, value: number) {
         if(this._orderTicketPrice.takeProfit.length < index) {
             this._orderTicketPrice.takeProfit[index] = value;
         }
     }
 
-    public getStopLoss(index: number) {
+    private getStopLoss(index: number) {
         return this._orderTicketPrice.stopLoss[index];
     }
 }

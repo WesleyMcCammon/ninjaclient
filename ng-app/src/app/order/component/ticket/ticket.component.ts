@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ATMStrategy } from '../../model/atmStrategy';
+import { OrderService } from '../../../order/service/order.service';
 import { OrderTicket } from '../../model/orderTicket';
-import { AtmStrategyService } from '../../service/atm-strategy.service';
-import { OrderService } from '../../service/order.service';
+import { AutoTradeSettingsService } from '../../service/auto-trade-settings.service';
+import { AutoTradeSetting } from '../../../order/model/auto-trade-setting';
 import { SettingsService } from '../../../configuration/service/settings.service';
 import { FuturesValueService } from '../../../reference/service/futures-value.service';
 
@@ -12,62 +12,87 @@ import { FuturesValueService } from '../../../reference/service/futures-value.se
   styleUrls: ['./ticket.component.css']
 })
 export class TicketComponent implements OnInit {
-  atmStragegyList: ATMStrategy[] = new Array<ATMStrategy>();
-  selectedATMStrategy: ATMStrategy;
-  orderTicket: OrderTicket;
 
-  constructor(private atmStrategyService: AtmStrategyService, 
-    private orderService: OrderService, 
+  private _orderTicket: OrderTicket;
+  get orderTicket() { return this._orderTicket; }
+  @Input() set orderTicket(value: OrderTicket) {
+    this._orderTicket = value;
+    this.orderTicketLoaded();
+  }
+  selectedAutoTradeSetting: AutoTradeSetting;
+
+  constructor(private autoTradeSettingsService: AutoTradeSettingsService, 
+    private orderService: OrderService,
     private settingsService: SettingsService,
     private futuresValueService: FuturesValueService) { }
 
   ngOnInit(): void {
-    this.atmStrategyService.getStrategies().subscribe((atmStragegyList: ATMStrategy[]) => {
-      this.atmStragegyList = atmStragegyList;
-    });
-
-    this.orderService.orderTicketInitiated.subscribe((orderTicket: OrderTicket) => {
-      this.orderTicket = new OrderTicket(orderTicket.ticker, orderTicket.technicalStrategy, orderTicket.name, orderTicket.trigger, orderTicket.type);  
-      const defaultATMStrategyId = this.settingsService.getDefaultATM();
-      this.selectedATMStrategy = this.atmStragegyList.find(a => a.id === defaultATMStrategyId);
-      this.getATMCalculation();
-    });
   }
 
+  private orderTicketLoaded() { 
+    const defaultATMStrategyId = this.settingsService.getDefaultATM();
+    this.selectedAutoTradeSetting = this.autoTradeSettingsService
+      .autoTradingSettings.find(a => a.id === defaultATMStrategyId);
+    this.getATMCalculation();
+  }
+  
   private getATMCalculation() {
+    const cancelOrder: number = this.futuresValueService
+      .tickPriceAdjust(this.orderTicket.ticker, this.selectedAutoTradeSetting.cancelOrder);
+    const entryOrderPrice: number = this.futuresValueService
+      .tickPriceAdjust(this.orderTicket.ticker, this.selectedAutoTradeSetting.entry);
     
-    const cancelOrder: number = this.futuresValueService.tickPriceAdjust(this.orderTicket.ticker, this.selectedATMStrategy.cancelOrder);
-    const entryOrder: number = this.futuresValueService.tickPriceAdjust(this.orderTicket.ticker, this.selectedATMStrategy.entry);
+    this.setATM(this.selectedAutoTradeSetting.quantity, 
+      entryOrderPrice, 
+      cancelOrder, 
+      this.calculateStopLoss(), 
+      this.calculateTakeProfit());
+  }
 
+  setATM(quantity: number, entryOrder: number, cancelOrder: number, stopLossPrice: number[], takeProfitPrice: number[]) {
+    this.orderTicket.setATM(
+      quantity, entryOrder, cancelOrder, stopLossPrice, takeProfitPrice);    
+  }
+
+  calculateStopLoss(): number[]{
     const stopLossPrice: number[] = new Array<number>();
-    const takeProfitPrice: number[] = new Array<number>();
 
-    this.selectedATMStrategy.stopLoss.forEach(sl => {
+    this.selectedAutoTradeSetting.stopLoss.forEach(sl => {
       stopLossPrice.push(this.futuresValueService.dollarsPriceAdjust(this.orderTicket.ticker, sl));
     });
-    
-    this.selectedATMStrategy.takeProfit.forEach(tp => {
-      takeProfitPrice.push(this.futuresValueService.dollarsPriceAdjust(this.orderTicket.ticker, tp));
-    });
-    
-    this.orderTicket.setATM(
-      this.selectedATMStrategy.quantity, 
-      entryOrder, 
-      cancelOrder, 
-      stopLossPrice, 
-      takeProfitPrice);
+
+    return stopLossPrice;
   }
 
+  calculateTakeProfit(): number[] {
+    const takeProfitPrice: number[] = new Array<number>();
+    
+    this.selectedAutoTradeSetting.takeProfit.forEach(tp => {
+      takeProfitPrice.push(this.futuresValueService.dollarsPriceAdjust(this.orderTicket.ticker, tp));
+    });
 
+    return takeProfitPrice;
+  }
 
   stopLossTicks(index){
-    return this.selectedATMStrategy.stopLoss[index];
+    return this.selectedAutoTradeSetting.stopLoss[index];
+  }
+
+  // entry is originally set in ticks, this event changes the price
+  onEntryChange(event) {
+    if(!isNaN(event)) {
+      this.orderTicket.entry = (parseFloat(event)*100/100);
+    }
   }
 
   onQuantityChange(event) {
     if(!isNaN(event)) {
-      this.selectedATMStrategy.quantity = event;
+      this.selectedAutoTradeSetting.quantity = event;
     }
+  }
+
+  cancelTicket() {
+    this.orderService.cancelOrderTicket(this.orderTicket.id);
   }
 
   resetTicket() {

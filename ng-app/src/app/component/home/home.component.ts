@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   activeView: string = 'none';
-  constructor() { }
+
+  constructor() { 
+    //debugger;
+  }
 
   ngOnInit(): void {
   }

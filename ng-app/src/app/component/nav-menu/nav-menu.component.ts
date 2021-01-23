@@ -14,6 +14,6 @@ export class NavMenuComponent implements OnInit {
   }
 
   navigate(name: string) {
-    this.router.navigate(['/pivot-view']);
+    this.router.navigate([name]);
   }
 }

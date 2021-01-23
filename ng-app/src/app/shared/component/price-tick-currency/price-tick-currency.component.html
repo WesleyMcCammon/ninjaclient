@@ -2,13 +2,16 @@
     <div class="price-tick-currency-input-container">
         <mat-form-field>
             <mat-label>{{label}}</mat-label>
-            <input matInput 
-                (keyup)="onKeyUp($event)"
+            <form [formGroup]="mform">
+            <input #input matInput 
+                type="text"
                 (keydown)="onKeyDown($event)"
-                type="number"
                 [step]="step"
+                [id]="controlId"
+                formControlName="inputValue" 
                 [(ngModel)]="price" 
                 [ngClass]="{'price-tick-input': showTicks}">
+            </form>
         </mat-form-field>
     </div>
     <div *ngIf="showTicks" class="price-tick-currency-details-container" [ngStyle]="{'color': (ticks < 0) ? 'red' : 'green'}">
@@ -16,6 +19,6 @@
         <mat-label>{{futuresValueService.ticksToDollars(ticker, ticks) | currency}}</mat-label>
     </div>
 </div>
-<div style="font-size:10px;color:steelblue;position:relative;top:-15px">
+<div style="font-size:10px;color:maroon;position:relative;top:-15px;min-height: 20px;">
     {{errorMessage}}
 </div>

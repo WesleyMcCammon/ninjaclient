@@ -1,4 +1,3 @@
-
 <mat-card *ngIf="orderTicket">
     <div>
         <mat-card-title>{{orderTicket.ticker}} {{orderTicket.type}} order ticket</mat-card-title>
@@ -9,10 +8,13 @@
                 <app-price-tick-currency
                     label="Trigger Price" 
                     [step]=".01"
+                    controlId="triggerPriceInput"
                     [price]="orderTicket.trigger"></app-price-tick-currency>
                 <app-price-tick-currency
                     label="Entry Price" 
                     [step]=".01"
+                    controlId="entryPriceInput"
+                    (priceTickCurrencyEventEmitter)="onEntryChange($event)"
                     [price]="orderTicket.entry"></app-price-tick-currency>
                 <app-price-tick-currency
                     label="Cancel Price" 
@@ -20,15 +22,15 @@
                     [price]="orderTicket.orderTicketPrice.cancelOrder"></app-price-tick-currency>
                 <app-price-tick-currency
                     label="Quantity" 
-                    (change)="onQuantityChange($event)"
+                    (priceTickCurrencyEventEmitter)="onQuantityChange($event)"
                     [price]="orderTicket.quantity"></app-price-tick-currency>
             </div>
             <div>
                 <mat-form-field class="atm-strategy-contianer">
                     <mat-label>ATM Strategy</mat-label>
-                    <mat-select [(value)]="selectedATMStrategy" (selectionChange)="getATMCalculation()">
-                        <mat-option *ngFor="let atmStragegy of atmStragegyList" [value]="atmStragegy">
-                        {{atmStragegy.name}}
+                    <mat-select [(value)]="selectedAutoTradeSetting" (selectionChange)="getATMCalculation()">
+                        <mat-option *ngFor="let autoTradingSetting of autoTradeSettingsService.autoTradingSettings" [value]="autoTradingSetting">
+                        {{autoTradingSetting.name}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -40,6 +42,9 @@
                             [step]=".1"
                             [entry]="orderTicket.entry"
                             [type]="orderTicket.type"
+                            entryValueThreshold="min"
+                            [minValueErrorThreshold]=""
+                            [maxValueErrorThreshold]="orderTicket.entry"
                             [ticker]="orderTicket.ticker"></app-price-tick-currency>
                     </div>
                     <div>
@@ -49,6 +54,7 @@
                             [step]=".1"
                             [entry]="orderTicket.entry"
                             [type]="orderTicket.type"
+                            entryValueThreshold="max"
                             [ticker]="orderTicket.ticker"></app-price-tick-currency>
                         </div>
                     </div>              
@@ -64,6 +70,7 @@
                     </div>
                 </div>
                 <div class="button-container">
+                    <button (click)="cancelTicket()" mat-raised-button>Cancel</button>
                     <button (click)="resetTicket()" mat-raised-button>Reset</button>
                     <button (click)="submitTicket()" mat-raised-button>Submit</button>
                 </div>
