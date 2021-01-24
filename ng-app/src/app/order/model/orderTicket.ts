@@ -1,7 +1,9 @@
 import { OrderTicketPrice } from './orderTicketPrice';
+import { OrderStatus } from './order-status';
 
 export class OrderTicket {
     private _id: string;
+    private _status: OrderStatus; // staged, submitted, executed, cancelled
     private _ticker: string;
     private _technicalStrategy: string;
     private _name: string;
@@ -38,8 +40,13 @@ export class OrderTicket {
     get missingStopLossCount(): number { return this._quantity - this._orderTicketPrice.stopLoss.length; }
     get missingTakeProfitCount(): number { return this._quantity - this._orderTicketPrice.takeProfit.length; }
 
+    get status(): OrderStatus { return this._status; }
+    set status(value: OrderStatus) { this._status = value; }
+    
     constructor(ticker: string, technicalStrategy: string, name: string, trigger: number, type: string) {
         this._id = ticker + new Date().getTime().toString();
+        this._id = `${ticker.toLowerCase() + '-' + technicalStrategy.toLowerCase() + '-' + name.toLowerCase() + '-' + type.toLowerCase()}`;
+        this._status = OrderStatus.Stage;
         this._trigger = trigger;
         this._orderTicketPrice = {
             cancelOrder: 0, stopLoss: [], takeProfit: []

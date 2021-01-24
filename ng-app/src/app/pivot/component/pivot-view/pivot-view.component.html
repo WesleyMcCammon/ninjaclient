@@ -4,12 +4,7 @@
     <app-pivot-table></app-pivot-table>
   </div>
   <div style="width:50%">
-    <div style="display:flex;flex-direction:column">
-      <div *ngFor="let orderTicket of orderService.orderTickets">
-        <app-ticket [orderTicket]="orderTicket"></app-ticket>
-      </div>
-    </div>
+    <app-orders displayStyle="details" showOpened="false"></app-orders>
   </div>
 </div>
-
 

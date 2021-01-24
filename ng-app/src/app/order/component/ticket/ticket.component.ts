@@ -19,6 +19,16 @@ export class TicketComponent implements OnInit {
     this._orderTicket = value;
     this.orderTicketLoaded();
   }
+
+  _hideHeader: boolean = false;
+  get hideHeader() { return this._hideHeader; }
+  @Input() set hideHeader(value: string|boolean) {
+    this._hideHeader = value === 'true' || value === true;
+  }
+  
+  stopLossThreshold: string = '';
+  takeProfitThreshold: string = '';
+
   selectedAutoTradeSetting: AutoTradeSetting;
 
   constructor(private autoTradeSettingsService: AutoTradeSettingsService, 
@@ -27,6 +37,8 @@ export class TicketComponent implements OnInit {
     private futuresValueService: FuturesValueService) { }
 
   ngOnInit(): void {
+    this.stopLossThreshold = this.orderTicket.type === 'buy' ? 'min' : 'max';
+    this.takeProfitThreshold = this.orderTicket.type === 'buy' ? 'max' : 'min';
   }
 
   private orderTicketLoaded() { 

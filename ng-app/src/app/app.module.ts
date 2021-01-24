@@ -21,6 +21,7 @@ import { SettingsService } from './configuration/service/settings.service';
 import { AutoTradeSettingsService } from './order/service/auto-trade-settings.service';
 
 import { NgxMasonryModule } from 'ngx-masonry';
+import { OrdersComponent } from './order/component/orders/orders.component';
  
 
 @NgModule({
@@ -35,7 +36,8 @@ import { NgxMasonryModule } from 'ngx-masonry';
     TicketComponent,
     PriceTickCurrencyComponent,
     TestPageComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,

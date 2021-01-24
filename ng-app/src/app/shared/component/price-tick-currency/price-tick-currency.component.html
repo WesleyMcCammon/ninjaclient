@@ -2,14 +2,13 @@
     <div class="price-tick-currency-input-container">
         <mat-form-field>
             <mat-label>{{label}}</mat-label>
-            <form [formGroup]="mform">
+            <form [formGroup]="priceTickCurrencyFormGroup">
             <input #input matInput 
                 type="text"
                 (keydown)="onKeyDown($event)"
                 [step]="step"
                 [id]="controlId"
                 formControlName="inputValue" 
-                [(ngModel)]="price" 
                 [ngClass]="{'price-tick-input': showTicks}">
             </form>
         </mat-form-field>

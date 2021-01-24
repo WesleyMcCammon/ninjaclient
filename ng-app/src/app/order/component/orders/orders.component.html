@@ -1,0 +1,26 @@
+<ng-container [ngSwitch]="displayStyle">
+    <ng-container *ngSwitchCase="'details'">
+        <div style="display:flex;flex-direction:column">
+            <div style="margin-bottom:10px" *ngFor="let orderTicket of orderService.orderTickets">
+                <mat-accordion class="example-headers-align" multi>
+                    <mat-expansion-panel [expanded]="showOpened">
+                        <mat-expansion-panel-header [ngClass]="getPanelHeaderClass(orderTicket.status)">
+                            <mat-panel-title>
+                                <div title="show show if limit or stop order" style="flex: 1 1 auto">{{orderTicket.ticker}} {{orderTicket.type}} STOP|LIMIT trigger {{orderTicket.trigger}}</div>
+                                <div title="distance to target">0000.00</div>                    
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <app-ticket hideHeader="true" [orderTicket]="orderTicket"></app-ticket>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'summary'">
+        <div style="display:flex;flex-direction:column;font-size:10px;">
+            <div>{{orderService.orderTickets.length}} Ready Orders</div>
+            <div>{{orderService.orderTickets.length}} Submitted Orders</div>
+            <div>{{orderService.orderTickets.length}} Executed Orders</div>
+        </div>
+    </ng-container>
+</ng-container>

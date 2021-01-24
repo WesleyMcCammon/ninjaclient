@@ -4,9 +4,9 @@
             <span class="pivot-order-item">buy {{pivotPointName}}</span> {{pivotName}}</button>
         <button (click)="issueOrderTicket('sell')" mat-menu-item class="pivot-order-item-sell">
             <span class="pivot-order-item">sell {{pivotPointName}}</span> {{pivotName}}</button>
-        <button (click)="issueOrderTicket('reverse')" mat-menu-item>
+        <button disabled (click)="issueOrderTicket('reverse')" mat-menu-item>
             <span class="pivot-order-item">reverse order</span></button>
-        <button (click)="issueOrderTicket('cancel')" mat-menu-item>
+        <button disabled (click)="issueOrderTicket('cancel')" mat-menu-item>
             <span class="pivot-order-item">cancel order</span></button>
     </mat-menu>
     <div>{{pivotValue | number:'1.2-2' | formatNumberNoComma}}</div>

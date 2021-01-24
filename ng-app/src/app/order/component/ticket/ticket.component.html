@@ -1,79 +1,82 @@
 <mat-card *ngIf="orderTicket">
     <div>
-        <mat-card-title>{{orderTicket.ticker}} {{orderTicket.type}} order ticket</mat-card-title>
+        <mat-card-title>
+            <div *ngIf="!hideHeader">{{orderTicket.ticker}} {{orderTicket.type}} STOP|LIMIT order ticket</div>
+        </mat-card-title>
     </div>
     <mat-card-content>
-        <div>
-            <div>
-                <app-price-tick-currency
-                    label="Trigger Price" 
-                    [step]=".01"
-                    controlId="triggerPriceInput"
-                    [price]="orderTicket.trigger"></app-price-tick-currency>
-                <app-price-tick-currency
-                    label="Entry Price" 
-                    [step]=".01"
-                    controlId="entryPriceInput"
-                    (priceTickCurrencyEventEmitter)="onEntryChange($event)"
-                    [price]="orderTicket.entry"></app-price-tick-currency>
-                <app-price-tick-currency
-                    label="Cancel Price" 
-                    [step]=".01"
-                    [price]="orderTicket.orderTicketPrice.cancelOrder"></app-price-tick-currency>
-                <app-price-tick-currency
-                    label="Quantity" 
-                    (priceTickCurrencyEventEmitter)="onQuantityChange($event)"
-                    [price]="orderTicket.quantity"></app-price-tick-currency>
-            </div>
-            <div>
-                <mat-form-field class="stoploss-takeprofit-setting-contianer">
-                    <mat-label>Stop Loss / Take Profit Setting</mat-label>
-                    <mat-select [(value)]="selectedAutoTradeSetting" (selectionChange)="autoTradeCalculations()">
-                        <mat-option *ngFor="let autoTradingSetting of autoTradeSettingsService.autoTradingSettings" [value]="autoTradingSetting">
-                        {{autoTradingSetting.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <div class="stop-loss-take-profit-container">
-                    <div>
-                        <app-price-tick-currency *ngFor="let stopLoss of orderTicket.orderTicketPrice.stopLoss; let i = index" 
-                            label="Stop Loss {{i+1}}" 
-                            [price]="stopLoss"
-                            [step]=".1"
-                            [entry]="orderTicket.entry"
-                            [type]="orderTicket.type"
-                            entryValueThreshold="min"
-                            [minValueErrorThreshold]=""
-                            [maxValueErrorThreshold]="orderTicket.entry"
-                            [ticker]="orderTicket.ticker"></app-price-tick-currency>
-                    </div>
-                    <div>
-                        <app-price-tick-currency *ngFor="let takeProfit of orderTicket.orderTicketPrice.takeProfit; let i = index" 
-                            label="Take Profit {{i+1}}" 
-                            [price]="takeProfit"
-                            [step]=".1"
-                            [entry]="orderTicket.entry"
-                            [type]="orderTicket.type"
-                            entryValueThreshold="max"
-                            [ticker]="orderTicket.ticker"></app-price-tick-currency>
+        <div style="display:flex;flex-direction:column">
+            <div style="padding-bottom:10px;">potential profit/loss statement here {{orderTicket.status}}</div>
+            <div class="ticket-details-container">
+                <div class="ticket-details-column-one">
+                    <app-price-tick-currency
+                        label="Trigger Price" 
+                        [step]=".01"
+                        controlId="triggerPriceInput"
+                        [price]="orderTicket.trigger"></app-price-tick-currency>
+                    <app-price-tick-currency
+                        label="Entry Price" 
+                        [step]=".01"
+                        controlId="entryPriceInput"
+                        (priceTickCurrencyEventEmitter)="onEntryChange($event)"
+                        [price]="orderTicket.entry"></app-price-tick-currency>
+                    <app-price-tick-currency
+                        label="Cancel Price" 
+                        [step]=".01"
+                        [price]="orderTicket.orderTicketPrice.cancelOrder"></app-price-tick-currency>
+                    <app-price-tick-currency
+                        label="Quantity" 
+                        (priceTickCurrencyEventEmitter)="onQuantityChange($event)"
+                        [price]="orderTicket.quantity"></app-price-tick-currency>
+                </div>
+                <div class="ticket-details-column-two">
+                    <mat-form-field class="stoploss-takeprofit-setting-contianer">
+                        <mat-label>Stop Loss / Take Profit Setting</mat-label>
+                        <mat-select [(value)]="selectedAutoTradeSetting" (selectionChange)="autoTradeCalculations()">
+                            <mat-option *ngFor="let autoTradingSetting of autoTradeSettingsService.autoTradingSettings" [value]="autoTradingSetting">
+                            {{autoTradingSetting.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="stop-loss-take-profit-container">
+                        <div>
+                            <app-price-tick-currency *ngFor="let stopLoss of orderTicket.orderTicketPrice.stopLoss; let i = index" 
+                                label="Stop Loss {{i+1}}" 
+                                [price]="stopLoss"
+                                [step]=".1"
+                                [entry]="orderTicket.entry"
+                                [type]="orderTicket.type"
+                                [entryValueThreshold]="stopLossThreshold"
+                                [ticker]="orderTicket.ticker"></app-price-tick-currency>
                         </div>
-                    </div>              
+                        <div>
+                            <app-price-tick-currency *ngFor="let takeProfit of orderTicket.orderTicketPrice.takeProfit; let i = index" 
+                                label="Take Profit {{i+1}}" 
+                                [price]="takeProfit"
+                                [step]=".1"
+                                [entry]="orderTicket.entry"
+                                [type]="orderTicket.type"
+                                [entryValueThreshold]="takeProfitThreshold"
+                                [ticker]="orderTicket.ticker"></app-price-tick-currency>
+                            </div>
+                        </div>              
                 </div>
             </div>
-            <div class="ticket-footer">
-                <div class="ticket-messages">
-                    <div *ngIf="orderTicket.missingStopLossCount" class="stop-loss-take-profit-message-container stop-loss-warning-message">
-                        WARNING!! Missing S/L on {{orderTicket.missingStopLossCount}} contracts
-                    </div>
-                    <div *ngIf="orderTicket.missingTakeProfitCount" class="stop-loss-take-profit-message-container take-profilt-warning-message">
-                        Missing T/P on {{orderTicket.missingTakeProfitCount}} contracts
-                    </div>
+        </div>        
+        <div class="ticket-footer">
+            <div class="ticket-messages">
+                <div *ngIf="orderTicket.missingStopLossCount" class="stop-loss-take-profit-message-container stop-loss-warning-message">
+                    WARNING!! Missing S/L on {{orderTicket.missingStopLossCount}} contracts
                 </div>
-                <div class="button-container">
-                    <button (click)="cancelTicket()" mat-raised-button>Cancel</button>
-                    <button (click)="resetTicket()" mat-raised-button>Reset</button>
-                    <button (click)="submitTicket()" mat-raised-button>Submit</button>
+                <div *ngIf="orderTicket.missingTakeProfitCount" class="stop-loss-take-profit-message-container take-profilt-warning-message">
+                    Missing T/P on {{orderTicket.missingTakeProfitCount}} contracts
                 </div>
             </div>
-        </mat-card-content>
-    </mat-card>
+            <div class="button-container">
+                <button (click)="cancelTicket()" mat-raised-button>Cancel</button>
+                <button (click)="resetTicket()" mat-raised-button>Reset</button>
+                <button (click)="submitTicket()" mat-raised-button>Submit</button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

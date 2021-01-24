@@ -1,11 +1,6 @@
 .mat-card {
     margin-bottom: 25px;
 }
-.mat-card-content ul {
-    list-style:none;
-    padding:0px;
-    margin: 0px 10px 10px 0px;
-}
 
 .menu-link-container {
     display: flex;

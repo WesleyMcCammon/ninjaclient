@@ -17,14 +17,14 @@ export class PriceTickCurrencyComponent implements OnInit, OnDestroy {
   @Input() step: number = 1;
   @Input() entry: number = 0;
   @Input() type: string;
-  @Input() entryValueThreshold: string;
+  @Input() entryValueThreshold: string = '';
   @Input() controlId: string;
   @Output() priceTickCurrencyEventEmitter: EventEmitter<number> = new EventEmitter<number>();  
   showTicks: boolean = false;
   errorMessage: string = '';
 
   ticks: number = 0;
-  mform: FormGroup = new FormGroup({
+  priceTickCurrencyFormGroup: FormGroup = new FormGroup({
     inputValue: new FormControl()
   });
 
@@ -35,14 +35,17 @@ export class PriceTickCurrencyComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.price = Math.round(this.price * 100) / 100;
+    this.priceTickCurrencyFormGroup.controls['inputValue'].setValue(this.price);    
+    this.recalculate();
 
-    this.valueChangeSubscription = this.mform.valueChanges
+    this.valueChangeSubscription = this.priceTickCurrencyFormGroup.valueChanges
       .pipe(debounce(() => interval(750)))
-      .subscribe((data) => {
-        if(!this.errorCheck()) {
-          this.recalculate();
+      .subscribe((priceTickCurrencyForm) => {
+        this.price = priceTickCurrencyForm.inputValue.length === 0 ? 0 : 
+          (parseFloat(priceTickCurrencyForm.inputValue) * 100) / 100;           
+        this.recalculate();
+        if(!this.errorCheck()) { 
           this.priceTickCurrencyEventEmitter.emit(this.price);
-
         }
       });
   }
@@ -54,7 +57,7 @@ export class PriceTickCurrencyComponent implements OnInit, OnDestroy {
   }
 
   errorCheck(): boolean {
-    const isBuy: boolean = this.type === 'buy';    
+    const isBuy: boolean = this.type === 'buy';  
     if(this.entryValueThreshold === 'min') {
       this.errorMessage = this.price >= this.entry ? 'value cannot be above entry price' : '';
     }
@@ -65,7 +68,10 @@ export class PriceTickCurrencyComponent implements OnInit, OnDestroy {
       this.errorMessage = '';
     }
 
-    this.showTicks = this.errorMessage.length === 0;
+    if(this.entryValueThreshold.length > 0) {
+      this.showTicks = this.errorMessage.length === 0;
+    }
+
     return this.errorMessage.length > 0;
   }
   recalculate() {

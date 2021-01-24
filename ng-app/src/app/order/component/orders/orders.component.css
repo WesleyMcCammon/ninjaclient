@@ -1,0 +1,32 @@
+.mat-panel-title  {
+    display: flex;
+    flex-direction: row;
+}
+
+.panel-header-stage {
+    background-color: steelblue;
+    color: white;
+}
+
+.panel-header-stage:hover {
+    background-color: green;
+}
+.panel-header-submit {
+    background-color: salmon;
+}
+
+.panel-header-execute {
+    background-color: lightgreen;
+}
+
+.panel-header-cancel {
+    background-color: lightslategray;
+}
+
+.panel-header-open {
+    background-color: whitesmoke;
+}
+
+.pane-header-close {
+    background-color: darkturquoise;
+}

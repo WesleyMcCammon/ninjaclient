@@ -1,3 +1,7 @@
+.mat-card {
+    box-shadow: none;
+    padding-top: 0px;
+}
 .mat-card-title {
     font-variant: small-caps;
     font-size:22px;
@@ -11,17 +15,18 @@
     margin-right: 5px;
 }
 
-.mat-card-content > div:nth-child(1) {
-    display:flex;flex-direction:row;
+.ticket-details-container {
+    display: flex;
+    flex-direction: row;    
 }
-
-.mat-card-content > div:nth-child(1) > div:nth-child(1) {
+.ticket-details-column-one {
     display:flex;
     flex-direction:column;
     margin-right:20px;
+
 }
 
-.mat-card-content > div:nth-child(1) > div:nth-child(2) {
+.ticket-details-column-two {
     display:flex;
     flex-direction:column;
     flex:1 1 auto;

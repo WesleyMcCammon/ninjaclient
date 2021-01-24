@@ -4,3 +4,5 @@ export interface AutoTradeCalculation {
     stopLossPrice: number[];
     takeProfitPrice: number[];
 }
+
+// NOT USED
