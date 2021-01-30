@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OrderService } from 'src/app/order/service/order.service';
 
 @Component({
   selector: 'app-test-page',
@@ -6,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./test-page.component.css']
 })
 export class TestPageComponent implements OnInit {
-
-  constructor() { }
+  orderTicketErrorGroup: any;
+  constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
+    const id1: string = this.orderService.orderTickets[0].id;
+    this.orderTicketErrorGroup = {existingOrderTicketId: id1, errorOrderTicket: this.orderService.orderTickets[1]};
   }
 }

@@ -1,10 +1,11 @@
 <mat-card *ngIf="orderTicket">
     <div>
         <mat-card-title>
-            <div *ngIf="!hideHeader">{{orderTicket.ticker}} {{orderTicket.type}} STOP|LIMIT order ticket</div>
+            <div [ngClass]="{'ticket-header-title': showSummary === false, 'summary-header-title': showSummary === true}" *ngIf="showHeader">{{orderTicket.ticker}} {{orderTicket.type}} STOP|LIMIT <span *ngIf="!showSummary">order ticket</span></div>
+            <div class="summary-header-title" *ngIf="showSummary">trigger: {{orderTicket.trigger}}  entry: {{orderTicket.entry}}</div>
         </mat-card-title>
     </div>
-    <mat-card-content>
+    <mat-card-content *ngIf="showDetails">
         <div style="display:flex;flex-direction:column">
             <div style="padding-bottom:10px;">potential profit/loss statement here {{orderTicket.status}}</div>
             <div class="ticket-details-container">

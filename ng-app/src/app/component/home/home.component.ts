@@ -9,7 +9,6 @@ export class HomeComponent implements OnInit {
   activeView: string = 'none';
 
   constructor() { 
-    //debugger;
   }
 
   ngOnInit(): void {

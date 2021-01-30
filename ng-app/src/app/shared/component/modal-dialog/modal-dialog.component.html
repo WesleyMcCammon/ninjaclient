@@ -1,0 +1,19 @@
+<div id="modal-content-wrapper">
+    <header id="modal-header">
+        
+    </header>
+    <section id="modal-body">
+        <container-element [ngSwitch]="modalData.modalType">
+            <app-order-ticket-error *ngSwitchCase="'orderTicketError'" [errorDescription]="modalData.orderTicketErrorGroup.errorMessage"
+                [orderTicketErrorGroup]="modalData.orderTicketErrorGroup" (closeDialog)="childEvent($event)"></app-order-ticket-error>
+            <div *ngSwitchDefault>
+                <h1>No template found</h1>
+            </div>
+        </container-element>
+    </section>
+    <footer id="modal-footer">
+        <button mat-raised-button (click)="closeModal()">
+            Close
+        </button>
+    </footer>
+</div>

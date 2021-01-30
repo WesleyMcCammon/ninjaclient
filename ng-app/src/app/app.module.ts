@@ -22,7 +22,8 @@ import { AutoTradeSettingsService } from './order/service/auto-trade-settings.se
 
 import { NgxMasonryModule } from 'ngx-masonry';
 import { OrdersComponent } from './order/component/orders/orders.component';
- 
+import { ModalDialogComponent } from './shared/component/modal-dialog/modal-dialog.component';
+import { OrderTicketErrorComponent } from './error/component/order-ticket-error/order-ticket-error.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,9 @@ import { OrdersComponent } from './order/component/orders/orders.component';
     PriceTickCurrencyComponent,
     TestPageComponent,
     NavMenuComponent,
-    OrdersComponent
+    OrdersComponent,
+    ModalDialogComponent,
+    OrderTicketErrorComponent
   ],
   imports: [
     BrowserModule,

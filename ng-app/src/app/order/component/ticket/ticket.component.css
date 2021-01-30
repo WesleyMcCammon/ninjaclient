@@ -2,9 +2,13 @@
     box-shadow: none;
     padding-top: 0px;
 }
-.mat-card-title {
+.ticket-header-title {
     font-variant: small-caps;
     font-size:22px;
+}
+
+.summary-header-title {
+    font-size: 12px;
 }
 .mat-card-header-text {
     margin: 0px 0px;

@@ -24,7 +24,9 @@
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
     "masonry-layout": "^4.2.2",
+    "ng-mat-select-infinite-scroll": "^2.1.1",
     "ngx-masonry": "^10.0.6",
+    "ngx-mat-select-search": "^3.2.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.1.0",
     "zone.js": "~0.10.3"

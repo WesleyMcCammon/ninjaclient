@@ -1,3 +1,6 @@
+import { ErrorMessage } from './error-message';
+
 export interface ConfigrationSettings {
-    defaultAutoTradingId: number;
-  }
+    defaultAutoTradingId: number; 
+    errorMessages: ErrorMessage[]
+}

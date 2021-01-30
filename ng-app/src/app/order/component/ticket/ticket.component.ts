@@ -19,11 +19,31 @@ export class TicketComponent implements OnInit {
     this._orderTicket = value;
     this.orderTicketLoaded();
   }
+  
+  _showSummary: boolean = false;
+  get showSummary() { return this._showSummary; }
+  @Input() set showSummary(value: string|boolean) {    
+    this._showSummary = value === 'true' || value === true;
+    if(this._showSummary) {
+      this._showDetails = false;
+      this._showHeader = true;
+    }
+    else {
+      this._showHeader = false;
+      this._showDetails = true;
+    }
+  }
 
-  _hideHeader: boolean = false;
-  get hideHeader() { return this._hideHeader; }
-  @Input() set hideHeader(value: string|boolean) {
-    this._hideHeader = value === 'true' || value === true;
+  _showDetails: boolean = true;
+  get showDetails() {return this._showDetails; }
+  @Input() set showDetails(value: string|boolean) {
+    this._showDetails = value === 'true' || value === true;
+  }
+
+  _showHeader: boolean = false;
+  get showHeader() { return this._showHeader; }
+  @Input() set showHeader(value: string|boolean) {
+    this._showHeader = value === 'true' || value === true;
   }
   
   stopLossThreshold: string = '';

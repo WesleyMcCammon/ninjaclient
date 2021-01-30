@@ -22,7 +22,6 @@ export class PivotTableItemComponent implements OnInit {
   }
 
   issueOrderTicket(type: string) {
-    const result: string = this.orderService.initiateOrderTicket(this.ticker, this.pivotName, this.pivotPointName, this.pivotValue, type);
-    console.log(result);
+    this.orderService.initiateOrderTicket(this.ticker, this.pivotName, this.pivotPointName, this.pivotValue, type);
   }
 }

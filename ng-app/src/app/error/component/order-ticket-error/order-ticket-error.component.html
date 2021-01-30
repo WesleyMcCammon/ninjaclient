@@ -1,0 +1,19 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Order Ticket Error</mat-card-title>
+        <mat-card-subtitle>{{errorDescription}}</mat-card-subtitle>        
+    </mat-card-header>
+    <mat-card-content>   
+        <div style="display:flex;flex-direction:column">
+            <app-ticket showSummary="true" [orderTicket]="orderTicketErrorGroup.existingOrderTicket"></app-ticket>
+            <div style="display:flex;flex-direction: row;">
+                <app-ticket style="flex: 1 1 auto" showSummary="true" [orderTicket]="orderTicketErrorGroup.errorOrderTicket"></app-ticket>
+                <div class="button-container">
+                    <button style="height:42px" title={{button.title}} *ngFor="let button of orderTicketErrorGroup.buttons" mat-raised-button  (click)="onClick(button)">
+                        {{button.name}}
+                    </button>
+                </div>
+            </div>
+        </div>     
+    </mat-card-content>
+</mat-card>

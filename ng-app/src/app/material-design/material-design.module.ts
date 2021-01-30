@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu'
 import { MatInputModule } from '@angular/material/input'
 import { MatExpansionModule } from '@angular/material/expansion'
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -26,7 +27,8 @@ import { MatExpansionModule } from '@angular/material/expansion'
     MatCardModule,
     MatMenuModule,
     MatInputModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -38,7 +40,8 @@ import { MatExpansionModule } from '@angular/material/expansion'
     MatCardModule,
     MatMenuModule,
     MatInputModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule
   ]
 })
 export class MaterialDesignModule { }
