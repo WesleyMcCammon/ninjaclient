@@ -1,18 +1,8 @@
 <ng-container [ngSwitch]="displayStyle">
     <ng-container *ngSwitchCase="'details'">
         <div style="display:flex;flex-direction:column">
-            <div style="margin-bottom:10px" *ngFor="let orderTicket of orderService.orderTickets">
-                <mat-accordion class="example-headers-align" multi>
-                    <mat-expansion-panel [expanded]="showOpened">
-                        <mat-expansion-panel-header [ngClass]="getPanelHeaderClass(orderTicket.status)">
-                            <mat-panel-title>
-                                <div title="show show if limit or stop order" style="flex: 1 1 auto">{{orderTicket.ticker}} {{orderTicket.type}} STOP|LIMIT trigger {{orderTicket.trigger}}</div>
-                                <div title="distance to target">0000.00</div>                    
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <app-ticket showHeader="false" [orderTicket]="orderTicket"></app-ticket>
-                    </mat-expansion-panel>
-                </mat-accordion>
+            <div style="margin-bottom:10px" *ngFor="let orderTicket of orderService.orderTickets">                
+                <app-ticket-header [orderTicket]="orderTicket"></app-ticket-header>
             </div>
         </div>
     </ng-container>

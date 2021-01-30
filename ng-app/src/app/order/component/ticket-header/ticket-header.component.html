@@ -1,0 +1,16 @@
+<mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel [expanded]="showOpened">
+        <mat-expansion-panel-header [ngClass]="getPanelHeaderClass(orderTicket.status)">
+            <mat-panel-title>
+                <div class="panel-header-buy-sell-indicator" [ngStyle]="{'background-color': orderTicket.type === 'buy' ? 'green' : 'red'}"></div>
+                <div title="show show if limit or stop order" class="panel-text panel-text-header">
+                    {{headerText}}
+                </div>
+                <div class="panel-text" title="distance to target">
+                    00000.00
+                </div>                    
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-ticket showHeader="false" [orderTicket]="orderTicket"></app-ticket>
+    </mat-expansion-panel>
+</mat-accordion>

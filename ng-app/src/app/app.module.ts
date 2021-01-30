@@ -24,6 +24,7 @@ import { NgxMasonryModule } from 'ngx-masonry';
 import { OrdersComponent } from './order/component/orders/orders.component';
 import { ModalDialogComponent } from './shared/component/modal-dialog/modal-dialog.component';
 import { OrderTicketErrorComponent } from './error/component/order-ticket-error/order-ticket-error.component';
+import { TicketHeaderComponent } from './order/component/ticket-header/ticket-header.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { OrderTicketErrorComponent } from './error/component/order-ticket-error/
     NavMenuComponent,
     OrdersComponent,
     ModalDialogComponent,
-    OrderTicketErrorComponent
+    OrderTicketErrorComponent,
+    TicketHeaderComponent
   ],
   imports: [
     BrowserModule,

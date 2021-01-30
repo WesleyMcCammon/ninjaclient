@@ -7,8 +7,6 @@ import { OrderService } from '../../../order/service/order.service';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-
-  @Input() showOpened: boolean = true;
   @Input() displayStyle: string = 'summary'
 
   constructor(public orderService: OrderService) { }

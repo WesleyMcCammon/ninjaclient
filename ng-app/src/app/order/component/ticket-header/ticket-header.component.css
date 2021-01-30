@@ -1,0 +1,28 @@
+.panel-header {
+    color: black;
+}
+
+.panel-header-buy-sell-indicator {
+    width: 20px;
+}
+
+.panel-text {
+    padding:15px 0px 10px 5px;
+}
+.panel-text-header {
+    flex: 1 1 auto
+}
+
+.distance-to-target {
+    padding:15px 0px 10px 5px;
+}
+
+.mat-expansion-panel-header {
+    padding: 0px 15px 0px 0px !important;
+    height: auto;
+}
+
+.mat-expansion-indicator::after {
+    padding: 0px 15px 0px 0px !important;
+    margin-bottom: 7px !important;
+}
